@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物品分类系统测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .item-card {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 6px;
+            border: 2px solid;
+        }
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .item-details {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .quality-1 { border-color: #9E9E9E; }
+        .quality-2 { border-color: #4CAF50; }
+        .quality-3 { border-color: #2196F3; }
+        .quality-4 { border-color: #9C27B0; }
+        .quality-5 { border-color: #FF9800; }
+        .container-info {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>物品分类系统测试</h1>
+        
+        <div class="section">
+            <h2>容器配置信息</h2>
+            <div id="containers"></div>
+        </div>
+        
+        <div class="section">
+            <h2>物品分类统计</h2>
+            <div id="categories"></div>
+        </div>
+        
+        <div class="section">
+            <h2>所有物品</h2>
+            <div class="item-grid" id="items"></div>
+        </div>
+    </div>
+
+    <script>
+        const CATEGORY_NAMES = {
+            1: '工艺藏品',
+            2: '工具材料',
+            3: '电子物品', 
+            4: '家居物品',
+            5: '能源燃料',
+            6: '医疗道具',
+            7: '资料情报'
+        };
+        
+        const QUALITY_NAMES = {
+            1: '普通',
+            2: '罕见',
+            3: '稀有',
+            4: '史诗', 
+            5: '传说',
+            6: '神话'
+        };
+
+        async function loadData() {
+            try {
+                const response = await fetch('/api/config');
+                const result = await response.json();
+                
+                let data;
+                if (result.success && result.data) {
+                    data = result.data;
+                } else if (result.items && result.containers && result.layouts) {
+                    data = result;
+                } else {
+                    throw new Error('API响应格式不正确');
+                }
+                
+                // 显示容器配置
+                displayContainers(data.containers);
+                
+                // 显示物品分类统计
+                displayCategoryStats(data.items);
+                
+                // 显示所有物品
+                displayItems(data.items);
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.body.innerHTML = '<h1>加载失败</h1><p>请确保API服务器正在运行</p>';
+            }
+        }
+        
+        function displayContainers(containers) {
+            const containersDiv = document.getElementById('containers');
+            containersDiv.innerHTML = '';
+            
+            Object.values(containers).forEach(container => {
+                const div = document.createElement('div');
+                div.className = 'container-info';
+                div.innerHTML = `
+                    <h3>${container.name}</h3>
+                    <p>物品池: ${container.itemPool ? container.itemPool.length + ' 个物品' : '未配置'}</p>
+                    <p>布局: ${container.layoutIds ? container.layoutIds.join(', ') : '无'}</p>
+                    ${container.itemPool ? `<p>物品ID: ${container.itemPool.join(', ')}</p>` : ''}
+                `;
+                containersDiv.appendChild(div);
+            });
+        }
+        
+        function displayCategoryStats(items) {
+            const categoriesDiv = document.getElementById('categories');
+            const stats = {};
+            
+            items.forEach(item => {
+                const category = item.category || 1;
+                if (!stats[category]) {
+                    stats[category] = 0;
+                }
+                stats[category]++;
+            });
+            
+            let html = '<h3>分类统计:</h3>';
+            Object.entries(stats).forEach(([category, count]) => {
+                html += `<p>${CATEGORY_NAMES[category] || '未知'}: ${count} 个物品</p>`;
+            });
+            
+            categoriesDiv.innerHTML = html;
+        }
+        
+        function displayItems(items) {
+            const itemsDiv = document.getElementById('items');
+            itemsDiv.innerHTML = '';
+            
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = `item-card quality-${item.quality}`;
+                div.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-details">
+                        <div>ID: ${item.id}</div>
+                        <div>分类: ${CATEGORY_NAMES[item.category] || '未知'}</div>
+                        <div>质量: ${QUALITY_NAMES[item.quality] || '未知'}</div>
+                        <div>尺寸: ${item.size}</div>
+                        <div>权重: ${item.weight}</div>
+                    </div>
+                `;
+                itemsDiv.appendChild(div);
+            });
+        }
+        
+        // 页面加载完成后加载数据
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

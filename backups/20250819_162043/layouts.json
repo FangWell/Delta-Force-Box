@@ -1,0 +1,65 @@
+{
+  "slot_1": {
+    "name": "基础占位布局 1",
+    "positions": [
+      {"x": 0, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_001", "weight": 100},
+      {"x": 1, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_002", "weight": 100},
+      {"x": 0, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_003", "weight": 100},
+      {"x": 1, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_004", "weight": 100}
+    ]
+  },
+  "slot_2": {
+    "name": "基础占位布局 2",
+    "positions": [
+      {"x": 0, "y": 0, "size": "2x1", "isSlot": true, "slotId": "slot_005", "weight": 80},
+      {"x": 0, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_006", "weight": 100},
+      {"x": 1, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_007", "weight": 100},
+      {"x": 2, "y": 0, "size": "1x2", "isSlot": true, "slotId": "slot_008", "weight": 90}
+    ]
+  },
+  "slot_3": {
+    "name": "高级占位布局",
+    "positions": [
+      {"x": 0, "y": 0, "size": "2x2", "isSlot": true, "slotId": "slot_009", "weight": 60},
+      {"x": 2, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_010", "weight": 100},
+      {"x": 3, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_011", "weight": 100},
+      {"x": 2, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_012", "weight": 100},
+      {"x": 3, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_013", "weight": 100}
+    ]
+  },
+  "slot_4": {
+    "name": "复合占位布局",
+    "positions": [
+      {"x": 0, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_014", "weight": 100},
+      {"x": 1, "y": 0, "size": "3x1", "isSlot": true, "slotId": "slot_015", "weight": 50},
+      {"x": 0, "y": 1, "size": "1x2", "isSlot": true, "slotId": "slot_016", "weight": 80},
+      {"x": 1, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_017", "weight": 100},
+      {"x": 2, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_018", "weight": 100},
+      {"x": 3, "y": 1, "size": "1x1", "isSlot": true, "slotId": "slot_019", "weight": 100}
+    ]
+  },
+  "slot_5": {
+    "name": "精密占位布局",
+    "positions": [
+      {"x": 0, "y": 0, "size": "1x3", "isSlot": true, "slotId": "slot_020", "weight": 70},
+      {"x": 1, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_021", "weight": 100},
+      {"x": 2, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_022", "weight": 100},
+      {"x": 3, "y": 0, "size": "1x1", "isSlot": true, "slotId": "slot_023", "weight": 100},
+      {"x": 1, "y": 1, "size": "2x1", "isSlot": true, "slotId": "slot_024", "weight": 85},
+      {"x": 1, "y": 2, "size": "1x1", "isSlot": true, "slotId": "slot_025", "weight": 100},
+      {"x": 2, "y": 2, "size": "1x1", "isSlot": true, "slotId": "slot_026", "weight": 100}
+    ]
+  },
+  "slot_6": {
+    "name": "大型占位布局",
+    "positions": [
+      {"x": 0, "y": 0, "size": "2x2", "isSlot": true, "slotId": "slot_027", "weight": 60},
+      {"x": 2, "y": 0, "size": "2x2", "isSlot": true, "slotId": "slot_028", "weight": 60},
+      {"x": 0, "y": 2, "size": "1x1", "isSlot": true, "slotId": "slot_029", "weight": 100},
+      {"x": 1, "y": 2, "size": "1x1", "isSlot": true, "slotId": "slot_030", "weight": 100},
+      {"x": 2, "y": 2, "size": "1x1", "isSlot": true, "slotId": "slot_031", "weight": 100},
+      {"x": 3, "y": 2, "size": "1x1", "isSlot": true, "slotId": "slot_032", "weight": 100},
+      {"x": 0, "y": 3, "size": "4x1", "isSlot": true, "slotId": "slot_033", "weight": 40}
+    ]
+  }
+}

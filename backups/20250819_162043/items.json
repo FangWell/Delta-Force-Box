@@ -1,0 +1,202 @@
+[
+  {
+    "id": "1",
+    "name": "手枪",
+    "desc": "基础武器",
+    "quality": 1,
+    "category": 2,
+    "size": "1x1",
+    "icon": "/assets/pistol.png",
+    "weight": 10
+  },
+  {
+    "id": "2",
+    "name": "护甲",
+    "desc": "防御装备",
+    "quality": 4,
+    "category": 2,
+    "size": "2x2",
+    "icon": "/assets/armor.png",
+    "weight": 2
+  },
+  {
+    "id": "3",
+    "name": "能量饮料",
+    "desc": "恢复生命",
+    "quality": 2,
+    "category": 6,
+    "size": "1x1",
+    "icon": "/assets/energy-drink.png",
+    "weight": 8
+  },
+  {
+    "id": "4",
+    "name": "狙击枪",
+    "desc": "远程武器",
+    "quality": 5,
+    "category": 2,
+    "size": "1x3",
+    "icon": "/assets/sniper.png",
+    "weight": 1
+  },
+  {
+    "id": "5",
+    "name": "医疗包",
+    "desc": "快速治疗",
+    "quality": 3,
+    "category": 6,
+    "size": "1x2",
+    "icon": "/assets/medkit.png",
+    "weight": 5
+  },
+  {
+    "id": "6",
+    "name": "传说武器",
+    "desc": "极稀有武器",
+    "quality": 6,
+    "category": 1,
+    "size": "2x3",
+    "icon": "/assets/legendary-weapon.png",
+    "weight": 0.1
+  },
+  {
+    "id": "7",
+    "name": "护目镜",
+    "desc": "辅助装备",
+    "quality": 2,
+    "category": 3,
+    "size": "1x1",
+    "icon": "/assets/goggles.png",
+    "weight": 6
+  },
+  {
+    "id": "8",
+    "name": "弹匣",
+    "desc": "武器配件",
+    "quality": 1,
+    "category": 2,
+    "size": "1x1",
+    "icon": "/assets/magazine.png",
+    "weight": 12
+  },
+  {
+    "id": "9",
+    "name": "爆炸物",
+    "desc": "投掷武器",
+    "quality": 3,
+    "category": 2,
+    "size": "1x1",
+    "icon": "/assets/explosive.png",
+    "weight": 3
+  },
+  {
+    "id": "10",
+    "name": "特殊道具",
+    "desc": "神秘物品",
+    "quality": 6,
+    "category": 1,
+    "size": "2x2",
+    "icon": "/assets/special-item.png",
+    "weight": 0.5
+  },
+  {
+    "id": "11",
+    "name": "小型弹药",
+    "desc": "基础弹药",
+    "quality": 1,
+    "category": 2,
+    "size": "1x1",
+    "icon": "/assets/ammo-small.png",
+    "weight": 15
+  },
+  {
+    "id": "12",
+    "name": "步枪",
+    "desc": "标准突击步枪",
+    "quality": 2,
+    "category": 2,
+    "size": "2x1",
+    "icon": "/assets/rifle.png",
+    "weight": 6
+  },
+  {
+    "id": "13",
+    "name": "冲锋枪",
+    "desc": "近距离作战武器",
+    "quality": 3,
+    "category": 2,
+    "size": "2x1",
+    "icon": "/assets/smg.png",
+    "weight": 4
+  },
+  {
+    "id": "14",
+    "name": "大型医疗包",
+    "desc": "高效医疗用品",
+    "quality": 4,
+    "category": 6,
+    "size": "1x2",
+    "icon": "/assets/medkit-large.png",
+    "weight": 3
+  },
+  {
+    "id": "15",
+    "name": "重型护甲",
+    "desc": "全身防护",
+    "quality": 5,
+    "category": 2,
+    "size": "2x3",
+    "icon": "/assets/heavy-armor.png",
+    "weight": 1
+  },
+  {
+    "id": "16",
+    "name": "战术背包",
+    "desc": "增加携带容量",
+    "quality": 3,
+    "category": 4,
+    "size": "2x2",
+    "icon": "/assets/backpack.png",
+    "weight": 3
+  },
+  {
+    "id": "17",
+    "name": "手雷",
+    "desc": "爆炸性武器",
+    "quality": 2,
+    "category": 2,
+    "size": "1x1",
+    "icon": "/assets/grenade.png",
+    "weight": 7
+  },
+  {
+    "id": "18",
+    "name": "望远镜",
+    "desc": "观察工具",
+    "quality": 1,
+    "category": 3,
+    "size": "1x2",
+    "icon": "/assets/binoculars.png",
+    "weight": 8
+  },
+  {
+    "id": "19",
+    "name": "机枪",
+    "desc": "重型火力支援",
+    "quality": 5,
+    "category": 2,
+    "size": "3x1",
+    "icon": "/assets/machine-gun.png",
+    "weight": 1
+  },
+  {
+    "id": "20",
+    "name": "大型弹药箱",
+    "desc": "大容量弹药",
+    "quality": 4,
+    "category": 2,
+    "size": "2x1",
+    "icon": "/assets/ammo-large.png",
+    "weight": 2
+  }
+]

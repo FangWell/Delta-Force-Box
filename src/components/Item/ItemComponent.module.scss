@@ -1,0 +1,45 @@
+.item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  z-index: 2;
+  border: 2px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #000;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.itemName {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.itemQuality {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.itemCategory {
+  font-size: 9px;
+  opacity: 0.7;
+  font-style: italic;
+  margin-top: 1px;
+}

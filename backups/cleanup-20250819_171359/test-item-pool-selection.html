@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物品池选择测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .item {
+            padding: 10px;
+            background-color: #333;
+            border-radius: 4px;
+            border: 2px solid transparent;
+        }
+        .item.selected {
+            border-color: #4CAF50;
+        }
+        .item-name {
+            font-weight: bold;
+        }
+        .item-id {
+            font-size: 12px;
+            color: #999;
+        }
+        .button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>物品池选择测试</h1>
+        
+        <div class="section">
+            <h2>选择要测试的容器:</h2>
+            <select id="containerSelect" onchange="loadContainerItems()">
+                <option value="">选择容器</option>
+            </select>
+        </div>
+        
+        <div class="section">
+            <h2>容器物品池信息</h2>
+            <div id="containerInfo"></div>
+        </div>
+        
+        <div class="section">
+            <h2>所有物品 (绿框表示在当前容器物品池中)</h2>
+            <div class="item-list" id="itemList"></div>
+        </div>
+        
+        <div class="section">
+            <button class="button" onclick="testItemPoolSelection()">模拟编辑器物品池选择</button>
+        </div>
+    </div>
+
+    <script>
+        let gameData = {};
+        let selectedContainer = null;
+
+        async function loadData() {
+            try {
+                const response = await fetch('/api/config');
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    gameData = result.data;
+                } else if (result.items && result.containers && result.layouts) {
+                    gameData = result;
+                } else {
+                    throw new Error('API响应格式不正确');
+                }
+                
+                // 填充容器选择框
+                const select = document.getElementById('containerSelect');
+                Object.entries(gameData.containers).forEach(([id, container]) => {
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = `${container.name} (ID: ${id})`;
+                    select.appendChild(option);
+                });
+                
+                // 显示所有物品
+                displayAllItems();
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.body.innerHTML = '<h1>加载失败</h1><p>请确保API服务器正在运行</p>';
+            }
+        }
+        
+        function loadContainerItems() {
+            const select = document.getElementById('containerSelect');
+            const containerId = select.value;
+            
+            if (!containerId) {
+                selectedContainer = null;
+                document.getElementById('containerInfo').innerHTML = '';
+                displayAllItems();
+                return;
+            }
+            
+            selectedContainer = gameData.containers[containerId];
+            
+            // 显示容器信息
+            const info = document.getElementById('containerInfo');
+            info.innerHTML = `
+                <h3>${selectedContainer.name}</h3>
+                <p><strong>物品池:</strong> ${selectedContainer.itemPool ? selectedContainer.itemPool.join(', ') : '未配置'}</p>
+                <p><strong>物品池大小:</strong> ${selectedContainer.itemPool ? selectedContainer.itemPool.length : 0} 个物品</p>
+            `;
+            
+            // 更新物品显示
+            displayAllItems();
+        }
+        
+        function displayAllItems() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = '';
+            
+            const currentItemPool = selectedContainer ? (selectedContainer.itemPool || []) : [];
+            
+            gameData.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                
+                // 检查是否在当前容器的物品池中
+                const isInPool = currentItemPool.includes(item.id);
+                if (isInPool) {
+                    div.classList.add('selected');
+                }
+                
+                div.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-id">ID: ${item.id} ${isInPool ? '✓' : ''}</div>
+                `;
+                
+                itemList.appendChild(div);
+            });
+        }
+        
+        function testItemPoolSelection() {
+            if (!selectedContainer) {
+                alert('请先选择一个容器');
+                return;
+            }
+            
+            // 模拟编辑器的物品池选择逻辑
+            const currentItemPool = selectedContainer.itemPool || [];
+            
+            console.log('容器:', selectedContainer.name);
+            console.log('物品池配置:', currentItemPool);
+            
+            // 测试每个物品是否会被正确识别
+            let correctSelections = 0;
+            let totalItems = gameData.items.length;
+            
+            gameData.items.forEach(item => {
+                const shouldBeSelected = currentItemPool.includes(item.id);
+                const itemElement = document.querySelector(`[data-item-id="${item.id}"]`);
+                
+                if (shouldBeSelected) {
+                    console.log(`✓ 物品 "${item.name}" (ID: ${item.id}) 应该被选中`);
+                    correctSelections++;
+                } else {
+                    console.log(`- 物品 "${item.name}" (ID: ${item.id}) 不在物品池中`);
+                }
+            });
+            
+            console.log(`选择测试结果: ${correctSelections}/${currentItemPool.length} 个物品应该被选中`);
+            
+            alert(`测试完成！\n容器: ${selectedContainer.name}\n物品池大小: ${currentItemPool.length}\n应选中物品: ${correctSelections}\n详细信息请查看控制台`);
+        }
+
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

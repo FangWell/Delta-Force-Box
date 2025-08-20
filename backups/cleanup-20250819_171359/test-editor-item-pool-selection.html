@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑器物品池默认选择验证</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .success { background-color: #4CAF50; }
+        .error { background-color: #f44336; }
+        .warning { background-color: #ff9800; }
+        .info { background-color: #2196F3; }
+        
+        .container-test {
+            border: 1px solid #555;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .item-card {
+            padding: 8px;
+            background-color: #333;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 2px solid transparent;
+        }
+        
+        .item-card.should-be-selected {
+            border-color: #4CAF50;
+            background-color: #2e5c2e;
+        }
+        
+        .item-card.should-not-be-selected {
+            border-color: #666;
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>编辑器物品池默认选择验证</h1>
+        
+        <div class="section">
+            <h2>测试概述</h2>
+            <p>此测试验证编辑器在打开容器编辑对话框时，是否正确地根据容器现有物品池配置来预选物品。</p>
+            <button onclick="runAllTests()" style="padding: 10px 20px; font-size: 16px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">开始测试</button>
+        </div>
+        
+        <div class="section">
+            <h2>测试结果</h2>
+            <div id="testResults"></div>
+        </div>
+        
+        <div class="section">
+            <h2>详细验证</h2>
+            <div id="detailResults"></div>
+        </div>
+    </div>
+
+    <script>
+        let gameData = {};
+
+        async function loadGameData() {
+            try {
+                const response = await fetch('/api/config');
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    gameData = result.data;
+                } else if (result.items && result.containers && result.layouts) {
+                    gameData = result;
+                } else {
+                    throw new Error('API响应格式不正确');
+                }
+                return true;
+            } catch (error) {
+                console.error('加载游戏数据失败:', error);
+                return false;
+            }
+        }
+
+        async function runAllTests() {
+            const resultsDiv = document.getElementById('testResults');
+            const detailDiv = document.getElementById('detailResults');
+            
+            resultsDiv.innerHTML = '<div class="test-result info">正在运行测试...</div>';
+            detailDiv.innerHTML = '';
+
+            // 加载数据
+            const dataLoaded = await loadGameData();
+            if (!dataLoaded) {
+                resultsDiv.innerHTML = '<div class="test-result error">❌ 无法加载游戏数据</div>';
+                return;
+            }
+
+            let allTestsPass = true;
+            let results = [];
+
+            // 测试每个容器
+            Object.entries(gameData.containers).forEach(([containerId, containerData]) => {
+                const testResult = testContainerItemPool(containerId, containerData);
+                results.push(testResult);
+                if (!testResult.success) {
+                    allTestsPass = false;
+                }
+            });
+
+            // 显示总结果
+            const summaryHtml = allTestsPass 
+                ? '<div class="test-result success">✅ 所有测试通过！编辑器应该正确显示物品池默认选择。</div>'
+                : '<div class="test-result error">❌ 部分测试失败，需要检查编辑器实现。</div>';
+            
+            resultsDiv.innerHTML = summaryHtml;
+
+            // 显示详细结果
+            let detailHtml = '';
+            results.forEach(result => {
+                detailHtml += `
+                    <div class="container-test">
+                        <h3>${result.containerName} (ID: ${result.containerId})</h3>
+                        <div class="test-result ${result.success ? 'success' : 'error'}">
+                            ${result.success ? '✅' : '❌'} ${result.message}
+                        </div>
+                        <p><strong>物品池配置:</strong> ${result.itemPoolSize} 个物品</p>
+                        <p><strong>预期选中:</strong> ${result.expectedSelected.join(', ')}</p>
+                        
+                        <div class="item-grid">
+                            ${result.itemDetails.map(item => `
+                                <div class="item-card ${item.shouldBeSelected ? 'should-be-selected' : 'should-not-be-selected'}">
+                                    <div><strong>${item.name}</strong></div>
+                                    <div>ID: ${item.id}</div>
+                                    <div>${item.shouldBeSelected ? '✅ 应选中' : '⚪ 不选中'}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            detailDiv.innerHTML = detailHtml;
+        }
+
+        function testContainerItemPool(containerId, containerData) {
+            const itemPool = containerData.itemPool || [];
+            const containerName = containerData.name || `容器${containerId}`;
+            
+            // 模拟编辑器的逻辑：检查每个物品是否应该被选中
+            const expectedSelected = [];
+            const itemDetails = [];
+            
+            // 检查物品池中的每个物品ID是否存在于物品数据中
+            let validItemIds = [];
+            itemPool.forEach(itemId => {
+                const itemExists = gameData.items.find(item => item.id === itemId);
+                if (itemExists) {
+                    expectedSelected.push(itemId);
+                    validItemIds.push(itemId);
+                } else {
+                    console.warn(`容器${containerId}的物品池中包含无效物品ID: ${itemId}`);
+                }
+            });
+            
+            // 生成所有物品的详细信息
+            gameData.items.forEach(item => {
+                const shouldBeSelected = validItemIds.includes(item.id);
+                itemDetails.push({
+                    id: item.id,
+                    name: item.name,
+                    shouldBeSelected: shouldBeSelected
+                });
+            });
+
+            // 验证逻辑
+            let success = true;
+            let message = '';
+
+            if (itemPool.length === 0) {
+                message = '物品池为空，所有物品都不应该被选中';
+            } else if (validItemIds.length === itemPool.length) {
+                message = `物品池配置正确，应该预选 ${validItemIds.length} 个物品`;
+            } else {
+                success = false;
+                message = `物品池配置有问题：配置了 ${itemPool.length} 个物品，但只有 ${validItemIds.length} 个有效`;
+            }
+
+            return {
+                containerId,
+                containerName,
+                success,
+                message,
+                itemPoolSize: itemPool.length,
+                expectedSelected: validItemIds,
+                itemDetails: itemDetails.slice(0, 10) // 只显示前10个物品以节省空间
+            };
+        }
+
+        // 页面加载时自动运行测试
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+</body>
+</html>

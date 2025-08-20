@@ -1,0 +1,17 @@
+{
+  "name": "delta-force-server",
+  "version": "1.0.0",
+  "description": "Delta Force Container Simulator - Configuration API Server",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js",
+    "dev": "nodemon api.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

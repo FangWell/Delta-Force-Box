@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>容器数据验证测试</title>
+</head>
+<body>
+    <h1>容器数据验证测试</h1>
+    <div id="test-results"></div>
+
+    <script>
+        async function runTests() {
+            const resultsDiv = document.getElementById('test-results');
+            
+            try {
+                // 从API获取容器数据
+                const response = await fetch('/api/config');
+                const data = await response.json();
+                
+                const containers = data.containers || data;
+                const container1 = Object.values(containers)[0];
+                
+                let results = '<h2>测试结果</h2>';
+                
+                // 测试1: layoutIds是否存在
+                if (container1.layoutIds) {
+                    results += '✅ container1.layoutIds 存在<br>';
+                } else {
+                    results += '❌ container1.layoutIds 不存在<br>';
+                }
+                
+                // 测试2: layoutIds是否为数组
+                if (Array.isArray(container1.layoutIds)) {
+                    results += '✅ container1.layoutIds 是数组<br>';
+                } else {
+                    results += `❌ container1.layoutIds 不是数组，类型: ${typeof container1.layoutIds}<br>`;
+                }
+                
+                // 测试3: forEach是否可用
+                try {
+                    container1.layoutIds.forEach(layoutId => {
+                        results += `✅ forEach成功处理 layoutId: ${layoutId}<br>`;
+                    });
+                    results += '✅ forEach调用完全成功<br>';
+                } catch (error) {
+                    results += `❌ forEach调用失败: ${error.message}<br>`;
+                }
+                
+                // 显示完整数据结构
+                results += '<h3>容器1完整数据:</h3>';
+                results += `<pre>${JSON.stringify(container1, null, 2)}</pre>`;
+                
+                resultsDiv.innerHTML = results;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<h2>错误</h2><p>❌ 测试失败: ${error.message}</p>`;
+            }
+        }
+        
+        // 页面加载后运行测试
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html>
