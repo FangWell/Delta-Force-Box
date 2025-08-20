@@ -1,4 +1,4 @@
-import { Item, Layout, AssignedItem } from '../types';
+import { Item, AssignedItem, Container } from '../types';
 
 // 品质持续时间配置
 export const QUALITY_DURATIONS: Record<number, number> = {
@@ -56,96 +56,162 @@ export function weightedRandomSelect<T extends { weight: number }>(options: T[])
 }
 
 /**
- * 根据权重随机选择布局
- * @param layouts 布局数组
- * @returns 选中的布局
+ * 网格占用检测器
  */
-export function selectLayout(layouts: Layout[]): Layout {
-  // 如果只有一个布局，直接返回
-  if (layouts.length === 1) {
-    return layouts[0];
-  }
-  
-  // 检查是否所有布局都有权重字段
-  const hasWeights = layouts.every(layout => typeof layout.weight === 'number');
-  
-  if (hasWeights) {
-    // 使用权重随机选择
-    return weightedRandomSelect(layouts);
-  } else {
-    // 回退到等概率随机选择
-    const randomIndex = Math.floor(Math.random() * layouts.length);
-    return layouts[randomIndex];
-  }
-}
+class GridOccupancy {
+  private grid: boolean[][];
+  private width: number;
+  private height: number;
 
-/**
- * 根据尺寸和权重随机选择物品
- * @param items 所有物品数据
- * @param targetSize 目标尺寸，如 "2x1"
- * @param itemPool 可选的物品池ID列表，用于限制选择范围
- * @returns 选中的物品
- */
-export function selectItemBySize(items: Item[], targetSize: string, itemPool?: string[]): Item | null {
-  let availableItems = items;
-  
-  // 如果指定了物品池，则只从物品池中选择
-  if (itemPool && itemPool.length > 0) {
-    availableItems = items.filter(item => itemPool.includes(item.id));
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+    this.grid = Array(height).fill(null).map(() => Array(width).fill(false));
   }
-  
-  // 找到符合尺寸的所有物品
-  const suitableItems = availableItems.filter(item => item.size === targetSize);
-  
-  if (suitableItems.length === 0) {
-    console.warn(`没有找到尺寸为 ${targetSize} 的物品${itemPool ? '（在指定物品池中）' : ''}`);
-    return null;
-  }
-  
-  // 根据权重随机选择
-  return weightedRandomSelect(suitableItems);
-}
 
-/**
- * 根据布局位置生成分配的物品（新版占位格系统）
- * @param layout 选中的布局
- * @param items 所有物品数据
- * @param itemPool 可选的物品池ID列表，用于限制选择范围
- * @returns 已分配的物品数组
- */
-export function generateAssignedItems(layout: Layout, items: Item[], itemPool?: string[]): AssignedItem[] {
-  const assignedItems: AssignedItem[] = [];
-  
-  for (const position of layout.positions) {
-    if (position.isSlot && position.size) {
-      // 占位格系统：根据尺寸和物品池随机选择物品
-      const selectedItem = selectItemBySize(items, position.size, itemPool);
-      
-      if (selectedItem) {
-        const [width, height] = parseSize(selectedItem.size);
-        assignedItems.push({
-          item: selectedItem,
-          pos: [position.x, position.y],
-          size: [width, height]
-        });
+  /**
+   * 检查指定位置和尺寸是否可以放置物品
+   */
+  canPlace(x: number, y: number, itemWidth: number, itemHeight: number): boolean {
+    // 检查边界
+    if (x + itemWidth > this.width || y + itemHeight > this.height) {
+      return false;
+    }
+
+    // 检查是否被占用
+    for (let row = y; row < y + itemHeight; row++) {
+      for (let col = x; col < x + itemWidth; col++) {
+        if (this.grid[row][col]) {
+          return false;
+        }
       }
-    } else if (position.itemId) {
-      // 传统系统：使用固定物品ID
-      const item = items.find(item => item.id === position.itemId);
-      
-      if (item) {
-        const [width, height] = parseSize(item.size);
-        assignedItems.push({
-          item: item,
-          pos: [position.x, position.y],
-          size: [width, height]
-        });
-      } else {
-        console.warn(`未找到物品ID: ${position.itemId}`);
+    }
+
+    return true;
+  }
+
+  /**
+   * 占用指定位置
+   */
+  occupy(x: number, y: number, itemWidth: number, itemHeight: number): void {
+    for (let row = y; row < y + itemHeight; row++) {
+      for (let col = x; col < x + itemWidth; col++) {
+        this.grid[row][col] = true;
       }
     }
   }
+
+  /**
+   * 寻找下一个可放置的位置（从左到右，从上到下）
+   */
+  findNextAvailablePosition(itemWidth: number, itemHeight: number): [number, number] | null {
+    for (let y = 0; y <= this.height - itemHeight; y++) {
+      for (let x = 0; x <= this.width - itemWidth; x++) {
+        if (this.canPlace(x, y, itemWidth, itemHeight)) {
+          return [x, y];
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * 获取网格状态用于调试
+   */
+  getGrid(): boolean[][] {
+    return this.grid.map(row => [...row]);
+  }
+}
+
+/**
+ * 从容器的道具池中根据权重随机选择道具
+ * @param items 所有道具数据
+ * @param itemPool 容器的道具池ID列表
+ * @returns 随机选择的道具，如果没有找到则返回null
+ */
+export function selectRandomItem(items: Item[], itemPool: string[]): Item | null {
+  // 从道具池中筛选出有效的道具
+  const availableItems = items.filter(item => itemPool.includes(item.id));
   
+  if (availableItems.length === 0) {
+    console.warn('道具池中没有可用的道具');
+    return null;
+  }
+
+  // 根据权重随机选择
+  return weightedRandomSelect(availableItems);
+}
+
+/**
+ * 随机生成道具数量
+ * @param minItems 最小数量
+ * @param maxItems 最大数量
+ * @returns 随机的道具数量
+ */
+export function randomItemCount(minItems: number, maxItems: number): number {
+  return Math.floor(Math.random() * (maxItems - minItems + 1)) + minItems;
+}
+
+/**
+ * 动态生成容器内容 - 核心算法
+ * @param container 容器配置
+ * @param items 所有道具数据
+ * @returns 已分配的道具数组
+ */
+export function generateContainerItems(container: Container, items: Item[]): AssignedItem[] {
+  const assignedItems: AssignedItem[] = [];
+  
+  // 1. 随机确定道具数量
+  const targetItemCount = randomItemCount(container.minItems, container.maxItems);
+  
+  // 2. 创建网格占用检测器
+  const gridOccupancy = new GridOccupancy(container.width, container.height);
+  
+  // 3. 逐个生成和放置道具
+  for (let i = 0; i < targetItemCount; i++) {
+    // 3.1 从道具池中随机选择道具
+    const selectedItem = selectRandomItem(items, container.itemPool);
+    
+    if (!selectedItem) {
+      console.warn(`第${i + 1}个道具选择失败，跳过`);
+      continue;
+    }
+
+    // 3.2 解析道具尺寸
+    const [itemWidth, itemHeight] = parseSize(selectedItem.size);
+
+    // 3.3 寻找可放置的位置
+    const position = gridOccupancy.findNextAvailablePosition(itemWidth, itemHeight);
+    
+    if (position === null) {
+      console.log(`道具 "${selectedItem.name}" (${selectedItem.size}) 无法放置，容器空间不足。已放置 ${assignedItems.length} 个道具。`);
+      break; // 容器放不下了，忽略剩余道具
+    }
+
+    const [x, y] = position;
+
+    // 3.4 占用网格位置
+    gridOccupancy.occupy(x, y, itemWidth, itemHeight);
+
+    // 3.5 添加到结果数组
+    assignedItems.push({
+      item: selectedItem,
+      pos: [x, y],
+      size: [itemWidth, itemHeight]
+    });
+
+    console.log(`放置道具: "${selectedItem.name}" (${selectedItem.size}) 位置: [${x}, ${y}]`);
+  }
+
+  // 调试信息：显示最终的网格布局
+  if (process.env.NODE_ENV === 'development') {
+    console.log('最终网格布局:');
+    const finalGrid = gridOccupancy.getGrid();
+    finalGrid.forEach((row, y) => {
+      console.log(`第${y}行: ${row.map(cell => cell ? '■' : '□').join('')}`);
+    });
+  }
+
   return assignedItems;
 }
 

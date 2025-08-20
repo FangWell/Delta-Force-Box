@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ContainerOpening from './components/ContainerOpening/ContainerOpening';
 import { GameConfig } from './types';
 import { loadGameConfig } from './utils/dataLoader';
-import { selectLayout } from './utils/gameLogic';
+import { generateContainerItems } from './utils/gameLogic';
 import styles from './App.module.scss';
 
 function App() {
@@ -49,29 +49,18 @@ function App() {
       const container = gameConfig.containers[selectedContainer];
       if (!container) continue;
       
-      // 获取可用布局
-      const availableLayouts = container.layoutIds.map(layoutId => 
-        gameConfig.layouts[layoutId]
-      ).filter(layout => layout !== undefined);
+      console.log(`第${i + 1}次开启 ${container.name}:`);
       
-      if (availableLayouts.length === 0) continue;
+      // 使用新的动态生成系统
+      const assignedItems = generateContainerItems(container, gameConfig.items);
       
-      // 使用加权随机选择布局
-      const selectedLayout = selectLayout(availableLayouts);
-      
-      console.log(`第${i + 1}次开启 ${selectedContainer} (布局: ${selectedLayout.name}):`);
-      
-      // 为每个位置生成物品
-      selectedLayout.positions.forEach(position => {
-        // 查找对应物品或随机选择
-        const targetItem = gameConfig.items.find(item => item.id === position.itemId);
-        const item = targetItem || gameConfig.items[Math.floor(Math.random() * gameConfig.items.length)];
-        
-        // 统计结果
+      // 统计结果
+      assignedItems.forEach(assignedItem => {
+        const item = assignedItem.item;
         results[item.name] = (results[item.name] || 0) + 1;
         qualityStats[item.quality] = (qualityStats[item.quality] || 0) + 1;
         
-        console.log(`  - ${item.name} (${item.quality}) at [${position.x}, ${position.y}]`);
+        console.log(`  - ${item.name} (${item.quality}) at [${assignedItem.pos[0]}, ${assignedItem.pos[1]}]`);
       });
     }
     

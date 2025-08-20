@@ -1,25 +1,23 @@
-import { GameConfig, Item, Layout } from '../types';
+import { GameConfig, Item } from '../types';
 
 /**
- * 从公共目录加载游戏配置数据 (使用模块化配置)
+ * 从公共目录加载游戏配置数据 (移除布局系统)
  */
 export async function loadGameConfig(): Promise<GameConfig> {
   try {
-    // 并行加载所有配置文件
-    const [itemsResponse, containersResponse, layoutsResponse] = await Promise.all([
+    // 并行加载配置文件
+    const [itemsResponse, containersResponse] = await Promise.all([
       fetch('/json/items.json'),
-      fetch('/json/containers.json'),
-      fetch('/json/layouts.json')
+      fetch('/json/containers.json')
     ]);
 
-    if (!itemsResponse.ok || !containersResponse.ok || !layoutsResponse.ok) {
+    if (!itemsResponse.ok || !containersResponse.ok) {
       throw new Error('Failed to load one or more configuration files');
     }
 
-    const [items, containers, layouts] = await Promise.all([
+    const [items, containers] = await Promise.all([
       itemsResponse.json(),
-      containersResponse.json(),
-      layoutsResponse.json()
+      containersResponse.json()
     ]);
 
     // 将items从对象转换为数组格式
@@ -30,8 +28,7 @@ export async function loadGameConfig(): Promise<GameConfig> {
 
     return {
       items: itemsArray,
-      containers,
-      layouts
+      containers
     };
   } catch (error) {
     console.error('Failed to load game config:', error);
@@ -51,18 +48,4 @@ export function getItemsByIds(itemIds: string[], allItems: Item[]): Item[] {
     }
     return item;
   }).filter((item): item is Item => item !== null);
-}
-
-/**
- * 根据ID列表获取布局
- */
-export function getLayoutsByIds(layoutIds: string[], layoutRecord: Record<string, Layout>): Layout[] {
-  return layoutIds.map(id => {
-    const layout = layoutRecord[id];
-    if (!layout) {
-      console.warn(`Layout with ID ${id} not found`);
-      return null;
-    }
-    return layout;
-  }).filter((layout): layout is Layout => layout !== null);
 }

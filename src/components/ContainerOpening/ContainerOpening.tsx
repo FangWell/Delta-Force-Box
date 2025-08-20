@@ -7,12 +7,10 @@ import {
   AssignedItem, 
   GameConfig, 
   Container, 
-  Item,
-  Layout
+  Item
 } from '../../types';
 import {
-  selectLayout,
-  generateAssignedItems,
+  generateContainerItems,
   delay,
   QUALITY_DURATIONS,
   QUALITY_COLORS
@@ -105,24 +103,10 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
         return;
       }
       
-      // 根据layoutIds获取布局
-      const availableLayouts: Layout[] = container.layoutIds.map(layoutId => {
-        return gameConfig.layouts[layoutId];
-      }).filter(layout => layout !== undefined);
-      
-      if (availableLayouts.length === 0) {
-        console.error(`No layouts found for container ${containerName}`);
-        setOpeningState(OpeningState.IDLE);
-        onAnimationStateChange?.(false);
-        return;
-      }
-      
-      // 随机选择布局并生成物品
-      const selectedLayoutData = selectLayout(availableLayouts);
-      const newAssignedItems = generateAssignedItems(
-        selectedLayoutData, 
-        gameConfig.items, 
-        container.itemPool  // 传递容器的物品池
+      // 使用新的动态生成系统
+      const newAssignedItems = generateContainerItems(
+        container,
+        gameConfig.items
       );
       
       // 检查是否被取消
