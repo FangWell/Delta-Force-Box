@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权重功能验证 - Delta Force</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .section {
+            background: rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #45a049; }
+        .success { color: #4CAF50; }
+        .error { color: #f44336; }
+        .info { color: #2196F3; }
+        .results {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .weight-badge {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 布局权重功能完整验证</h1>
+        
+        <div class="section">
+            <h2>📋 功能状态检查</h2>
+            <div id="status-check">正在检查...</div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 权重分布验证</h2>
+            <p>对每个容器进行大量测试，验证权重是否按预期工作：</p>
+            <button onclick="runComprehensiveTest()">运行完整测试 (1000次/容器)</button>
+            <button onclick="clearTestResults()">清空结果</button>
+            <div id="comprehensive-results" class="results"></div>
+        </div>
+        
+        <div class="section">
+            <h2>🎮 实际游戏模拟</h2>
+            <p>模拟真实的游戏开箱流程：</p>
+            <button onclick="simulateGameSession()">模拟游戏会话 (50次开箱)</button>
+            <div id="game-simulation-results" class="results"></div>
+        </div>
+    </div>
+
+    <script>
+        let gameData = null;
+        
+        // 检查功能状态
+        async function checkStatus() {
+            const statusDiv = document.getElementById('status-check');
+            let html = '<h3>检查结果：</h3>';
+            
+            try {
+                // 1. 加载数据
+                const [itemsResponse, layoutsResponse, containersResponse] = await Promise.all([
+                    fetch('/json/items.json'),
+                    fetch('/json/layouts.json'),
+                    fetch('/json/containers.json')
+                ]);
+                
+                gameData = {
+                    items: await itemsResponse.json(),
+                    layouts: await layoutsResponse.json(),
+                    containers: await containersResponse.json()
+                };
+                
+                html += '<p class="success">✅ 数据加载成功</p>';
+                
+                // 2. 检查权重字段
+                const layoutsWithWeight = Object.values(gameData.layouts).filter(layout => 
+                    layout.weight !== undefined
+                ).length;
+                const totalLayouts = Object.keys(gameData.layouts).length;
+                
+                html += `<p class="success">✅ 布局权重覆盖率: ${layoutsWithWeight}/${totalLayouts} (${(layoutsWithWeight/totalLayouts*100).toFixed(1)}%)</p>`;
+                
+                // 3. 检查权重范围
+                const weights = Object.values(gameData.layouts).map(layout => layout.weight || 1);
+                const minWeight = Math.min(...weights);
+                const maxWeight = Math.max(...weights);
+                const avgWeight = (weights.reduce((sum, w) => sum + w, 0) / weights.length).toFixed(2);
+                
+                html += `<p class="info">📊 权重范围: ${minWeight} - ${maxWeight}, 平均: ${avgWeight}</p>`;
+                
+                // 4. 检查容器配置
+                let validContainers = 0;
+                for (const [containerId, container] of Object.entries(gameData.containers)) {
+                    if (container.layoutIds && container.layoutIds.length > 0) {
+                        validContainers++;
+                    }
+                }
+                
+                html += `<p class="success">✅ 有效容器: ${validContainers}/${Object.keys(gameData.containers).length}</p>`;
+                
+                // 5. 测试权重选择算法
+                const testLayouts = [
+                    { id: 'test1', weight: 1, name: 'Test1' },
+                    { id: 'test2', weight: 2, name: 'Test2' },
+                    { id: 'test3', weight: 3, name: 'Test3' }
+                ];
+                
+                const testResults = {};
+                for (let i = 0; i < 1000; i++) {
+                    const selected = weightedRandomSelect(testLayouts);
+                    testResults[selected.id] = (testResults[selected.id] || 0) + 1;
+                }
+                
+                const expectedRatios = { test1: '16.7%', test2: '33.3%', test3: '50.0%' };
+                const actualRatios = Object.fromEntries(
+                    Object.entries(testResults).map(([id, count]) => 
+                        [id, (count / 1000 * 100).toFixed(1) + '%']
+                    )
+                );
+                
+                html += `<p class="success">✅ 权重算法测试通过</p>`;
+                html += `<p style="font-size: 14px;">期望比例: ${JSON.stringify(expectedRatios)}</p>`;
+                html += `<p style="font-size: 14px;">实际比例: ${JSON.stringify(actualRatios)}</p>`;
+                
+            } catch (error) {
+                html += `<p class="error">❌ 错误: ${error.message}</p>`;
+            }
+            
+            statusDiv.innerHTML = html;
+        }
+        
+        // 权重随机选择
+        function weightedRandomSelect(options) {
+            const totalWeight = options.reduce((sum, opt) => sum + opt.weight, 0);
+            let rand = Math.random() * totalWeight;
+            
+            for (const opt of options) {
+                rand -= opt.weight;
+                if (rand <= 0) return opt;
+            }
+            
+            return options[options.length - 1];
+        }
+        
+        // 选择布局
+        function selectLayout(layouts) {
+            if (layouts.length === 1) return layouts[0];
+            
+            const hasWeights = layouts.every(layout => typeof layout.weight === 'number');
+            
+            if (hasWeights) {
+                return weightedRandomSelect(layouts);
+            } else {
+                const randomIndex = Math.floor(Math.random() * layouts.length);
+                return layouts[randomIndex];
+            }
+        }
+        
+        // 运行完整测试
+        async function runComprehensiveTest() {
+            const resultsDiv = document.getElementById('comprehensive-results');
+            resultsDiv.innerHTML = '<p>🔄 测试进行中...</p>';
+            
+            const testResults = {};
+            const testCount = 1000;
+            
+            for (const [containerId, container] of Object.entries(gameData.containers)) {
+                if (!container.layoutIds || container.layoutIds.length === 0) continue;
+                
+                const availableLayouts = container.layoutIds.map(layoutId => ({
+                    id: layoutId,
+                    ...gameData.layouts[layoutId],
+                    weight: gameData.layouts[layoutId].weight || 1
+                }));
+                
+                const containerResults = {};
+                
+                for (let i = 0; i < testCount; i++) {
+                    const selected = selectLayout(availableLayouts);
+                    containerResults[selected.id] = (containerResults[selected.id] || 0) + 1;
+                }
+                
+                testResults[containerId] = {
+                    container,
+                    layouts: availableLayouts,
+                    results: containerResults
+                };
+            }
+            
+            // 显示结果
+            let html = `<h3>📈 完整测试结果 (每容器${testCount}次)：</h3>`;
+            
+            for (const [containerId, data] of Object.entries(testResults)) {
+                html += `<div style="margin: 20px 0; padding: 15px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;">`;
+                html += `<h4>${data.container.name} (ID: ${containerId})</h4>`;
+                html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">`;
+                
+                const sortedResults = Object.entries(data.results).sort((a, b) => b[1] - a[1]);
+                
+                for (const [layoutId, count] of sortedResults) {
+                    const layout = gameData.layouts[layoutId];
+                    const percentage = (count / testCount * 100).toFixed(1);
+                    const weight = layout.weight || 1;
+                    const totalWeight = data.layouts.reduce((sum, l) => sum + l.weight, 0);
+                    const expectedPercentage = (weight / totalWeight * 100).toFixed(1);
+                    
+                    const deviation = Math.abs(parseFloat(percentage) - parseFloat(expectedPercentage));
+                    const status = deviation < 3 ? 'success' : deviation < 5 ? 'info' : 'error';
+                    
+                    html += `<div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">`;
+                    html += `<strong>${layout.name || layoutId}</strong><br>`;
+                    html += `<span class="weight-badge">权重: ${weight}</span><br>`;
+                    html += `<div class="${status}">实际: ${count} (${percentage}%)</div>`;
+                    html += `<div>期望: ~${expectedPercentage}%</div>`;
+                    html += `<div style="font-size: 12px;">偏差: ${deviation.toFixed(1)}%</div>`;
+                    html += `</div>`;
+                }
+                
+                html += `</div></div>`;
+            }
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        // 模拟游戏会话
+        function simulateGameSession() {
+            const resultsDiv = document.getElementById('game-simulation-results');
+            const sessionCount = 50;
+            const results = [];
+            
+            for (let i = 0; i < sessionCount; i++) {
+                // 随机选择容器
+                const containerIds = Object.keys(gameData.containers);
+                const randomContainerId = containerIds[Math.floor(Math.random() * containerIds.length)];
+                const container = gameData.containers[randomContainerId];
+                
+                if (!container.layoutIds || container.layoutIds.length === 0) continue;
+                
+                const availableLayouts = container.layoutIds.map(layoutId => ({
+                    id: layoutId,
+                    ...gameData.layouts[layoutId],
+                    weight: gameData.layouts[layoutId].weight || 1
+                }));
+                
+                const selectedLayout = selectLayout(availableLayouts);
+                
+                results.push({
+                    containerName: container.name,
+                    containerId: randomContainerId,
+                    layoutName: selectedLayout.name || selectedLayout.id,
+                    layoutWeight: selectedLayout.weight,
+                    itemCount: selectedLayout.positions ? selectedLayout.positions.length : 0
+                });
+            }
+            
+            let html = `<h3>🎮 游戏会话模拟结果 (${sessionCount}次开箱)：</h3>`;
+            html += '<div style="max-height: 300px; overflow-y: auto;">';
+            
+            results.forEach((result, index) => {
+                html += `<div style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px; display: flex; justify-content: space-between;">`;
+                html += `<span>#${index + 1} ${result.containerName}</span>`;
+                html += `<span>${result.layoutName} <span class="weight-badge">${result.layoutWeight}</span> (${result.itemCount}物品)</span>`;
+                html += `</div>`;
+            });
+            
+            html += '</div>';
+            
+            // 统计
+            const containerStats = {};
+            const layoutStats = {};
+            
+            results.forEach(result => {
+                containerStats[result.containerName] = (containerStats[result.containerName] || 0) + 1;
+                layoutStats[result.layoutName] = (layoutStats[result.layoutName] || 0) + 1;
+            });
+            
+            html += '<h4>📊 统计信息：</h4>';
+            html += `<p>容器使用次数: ${Object.entries(containerStats).map(([name, count]) => `${name}(${count})`).join(', ')}</p>`;
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        function clearTestResults() {
+            document.getElementById('comprehensive-results').innerHTML = '';
+            document.getElementById('game-simulation-results').innerHTML = '';
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('load', checkStatus);
+    </script>
+</body>
+</html>

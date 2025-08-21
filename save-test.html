@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>容器编辑器保存测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .success { color: green; }
+        .error { color: red; }
+        pre { background: #f5f5f5; padding: 10px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>容器保存功能诊断测试</h1>
+    
+    <div class="test-section">
+        <h3>1. 测试基本网络连接</h3>
+        <button onclick="testNetworkConnection()">测试网络连接</button>
+        <div id="network-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>2. 测试读取容器数据</h3>
+        <button onclick="testLoadContainers()">读取容器数据</button>
+        <div id="load-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>3. 测试API保存功能</h3>
+        <button onclick="testAPISave()">测试API保存</button>
+        <div id="api-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>4. 测试文件写入（如果支持）</h3>
+        <button onclick="testFileSave()">测试文件保存</button>
+        <div id="file-result"></div>
+    </div>
+
+    <script>
+        async function testNetworkConnection() {
+            const resultDiv = document.getElementById('network-result');
+            resultDiv.innerHTML = '<p>测试中...</p>';
+            
+            try {
+                // 测试基本的HTTP请求
+                const response = await fetch('http://httpbin.org/json');
+                const data = await response.json();
+                resultDiv.innerHTML = '<p class="success">✅ 网络连接正常</p>';
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">❌ 网络连接失败: ${error.message}</p>`;
+            }
+        }
+
+        async function testLoadContainers() {
+            const resultDiv = document.getElementById('load-result');
+            resultDiv.innerHTML = '<p>测试中...</p>';
+            
+            try {
+                const response = await fetch('/json/containers.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <p class="success">✅ 容器数据读取成功，共 ${Object.keys(data).length} 个容器</p>
+                    <pre>${JSON.stringify(data, null, 2).slice(0, 500)}...</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">❌ 读取失败: ${error.message}</p>`;
+            }
+        }
+
+        async function testAPISave() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '<p>测试中...</p>';
+            
+            const testContainer = {
+                id: "999",
+                name: "测试容器API",
+                desc: "通过API保存的测试容器",
+                quality: 1,
+                width: 5,
+                height: 5,
+                cost: 100,
+                color: '#4CAF50',
+                minItems: 3,
+                maxItems: 6,
+                description: '测试描述',
+                itemPool: ["1", "2", "3"]
+            };
+            
+            try {
+                console.log('开始API测试...');
+                console.log('测试数据:', testContainer);
+                
+                const response = await fetch('http://localhost:3001/api/containers/999', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testContainer)
+                });
+                
+                console.log('响应状态:', response.status);
+                console.log('响应头:', [...response.headers.entries()]);
+                
+                if (!response.ok) {
+                    let errorDetails;
+                    try {
+                        errorDetails = await response.json();
+                    } catch (e) {
+                        errorDetails = await response.text();
+                    }
+                    throw new Error(`HTTP ${response.status}: ${JSON.stringify(errorDetails)}`);
+                }
+                
+                const result = await response.json();
+                console.log('API响应:', result);
+                
+                resultDiv.innerHTML = `
+                    <p class="success">✅ API保存成功!</p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('API测试失败:', error);
+                resultDiv.innerHTML = `
+                    <p class="error">❌ API保存失败: ${error.message}</p>
+                    <p>检查浏览器控制台以获取更多详细信息</p>
+                `;
+            }
+        }
+
+        async function testFileSave() {
+            const resultDiv = document.getElementById('file-result');
+            resultDiv.innerHTML = '<p>浏览器无法直接写入文件，请使用API方式</p>';
+        }
+
+        // 页面加载时自动运行测试
+        window.onload = () => {
+            console.log('容器保存诊断页面已加载');
+            console.log('当前URL:', window.location.href);
+            console.log('User Agent:', navigator.userAgent);
+        };
+    </script>
+</body>
+</html>

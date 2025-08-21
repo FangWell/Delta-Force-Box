@@ -1,0 +1,18 @@
+{
+  "items": [],
+  "containers": {
+    "基础战利品箱": {
+      "cost": 100,
+      "rarity": "常见",
+      "layoutIds": ["default_layout"],
+      "color": "#4CAF50"
+    }
+  },
+  "layouts": {
+    "default_layout": {
+      "name": "默认布局",
+      "description": "系统默认布局",
+      "positions": []
+    }
+  }
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布局权重测试 - Delta Force</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .test-section {
+            background: rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .results {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .weight-info {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin: 0 5px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 布局权重测试工具</h1>
+        <p>测试新的布局权重系统是否正常工作</p>
+        
+        <div class="test-section">
+            <h2>🔧 布局权重信息</h2>
+            <div id="layout-info">正在加载...</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📊 权重分布测试</h2>
+            <p>模拟多次选择布局，统计每个布局被选中的次数：</p>
+            <button onclick="testWeightDistribution(100)">测试 100 次</button>
+            <button onclick="testWeightDistribution(500)">测试 500 次</button>
+            <button onclick="testWeightDistribution(1000)">测试 1000 次</button>
+            <button onclick="clearResults()">清空结果</button>
+            <div id="weight-test-results" class="results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎮 实际开箱测试</h2>
+            <p>模拟实际的容器开箱，查看选择的布局：</p>
+            <select id="container-select">
+                <option value="">选择容器...</option>
+            </select>
+            <button onclick="simulateOpenContainer()">模拟开箱</button>
+            <div id="container-test-results" class="results"></div>
+        </div>
+    </div>
+
+    <script>
+        let gameData = null;
+        
+        // 加载游戏数据
+        async function loadGameData() {
+            try {
+                const [itemsResponse, layoutsResponse, containersResponse] = await Promise.all([
+                    fetch('/json/items.json'),
+                    fetch('/json/layouts.json'),
+                    fetch('/json/containers.json')
+                ]);
+                
+                gameData = {
+                    items: await itemsResponse.json(),
+                    layouts: await layoutsResponse.json(),
+                    containers: await containersResponse.json()
+                };
+                
+                displayLayoutInfo();
+                loadContainerOptions();
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('layout-info').innerHTML = '❌ 数据加载失败: ' + error.message;
+            }
+        }
+        
+        // 显示布局权重信息
+        function displayLayoutInfo() {
+            const layoutInfo = document.getElementById('layout-info');
+            let html = '<h3>布局权重分布：</h3><div style="display: flex; flex-wrap: wrap; gap: 10px;">';
+            
+            for (const [layoutId, layout] of Object.entries(gameData.layouts)) {
+                const weight = layout.weight !== undefined ? layout.weight : 1;
+                const posCount = layout.positions ? layout.positions.length : 0;
+                html += `
+                    <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; min-width: 200px;">
+                        <strong>${layout.name || layoutId}</strong><br>
+                        <span class="weight-info">权重: ${weight}</span><br>
+                        <small>物品数: ${posCount}</small>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            layoutInfo.innerHTML = html;
+        }
+        
+        // 加载容器选项
+        function loadContainerOptions() {
+            const select = document.getElementById('container-select');
+            for (const [containerId, container] of Object.entries(gameData.containers)) {
+                const option = document.createElement('option');
+                option.value = containerId;
+                option.textContent = `${container.name} (${container.layoutIds.length}个布局)`;
+                select.appendChild(option);
+            }
+        }
+        
+        // 加权随机选择算法 (与gameLogic.ts中相同)
+        function weightedRandomSelect(options) {
+            const totalWeight = options.reduce((sum, opt) => sum + opt.weight, 0);
+            let rand = Math.random() * totalWeight;
+            
+            for (const opt of options) {
+                rand -= opt.weight;
+                if (rand <= 0) return opt;
+            }
+            
+            return options[options.length - 1];
+        }
+        
+        // 选择布局 (与gameLogic.ts中相同)
+        function selectLayout(layouts) {
+            if (layouts.length === 1) {
+                return layouts[0];
+            }
+            
+            const hasWeights = layouts.every(layout => typeof layout.weight === 'number');
+            
+            if (hasWeights) {
+                return weightedRandomSelect(layouts);
+            } else {
+                const randomIndex = Math.floor(Math.random() * layouts.length);
+                return layouts[randomIndex];
+            }
+        }
+        
+        // 测试权重分布
+        function testWeightDistribution(testCount) {
+            const results = document.getElementById('weight-test-results');
+            
+            // 获取所有布局
+            const allLayouts = Object.entries(gameData.layouts).map(([id, layout]) => ({
+                id,
+                ...layout,
+                weight: layout.weight !== undefined ? layout.weight : 1
+            }));
+            
+            // 统计选择次数
+            const selectionCount = {};
+            allLayouts.forEach(layout => {
+                selectionCount[layout.id] = 0;
+            });
+            
+            // 进行测试
+            for (let i = 0; i < testCount; i++) {
+                const selected = selectLayout(allLayouts);
+                selectionCount[selected.id]++;
+            }
+            
+            // 显示结果
+            let html = `<h4>📈 测试结果 (${testCount} 次选择)：</h4>`;
+            html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px;">';
+            
+            // 按选择次数排序
+            const sortedResults = Object.entries(selectionCount).sort((a, b) => b[1] - a[1]);
+            
+            for (const [layoutId, count] of sortedResults) {
+                const layout = gameData.layouts[layoutId];
+                const percentage = ((count / testCount) * 100).toFixed(1);
+                const expectedWeight = layout.weight || 1;
+                const totalWeight = allLayouts.reduce((sum, l) => sum + l.weight, 0);
+                const expectedPercentage = ((expectedWeight / totalWeight) * 100).toFixed(1);
+                
+                html += `
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                        <strong>${layout.name || layoutId}</strong><br>
+                        <span class="weight-info">权重: ${expectedWeight}</span><br>
+                        <div>实际: ${count} 次 (${percentage}%)</div>
+                        <div>期望: ~${expectedPercentage}%</div>
+                        <div style="margin-top: 5px;">
+                            <div style="background: rgba(0,0,0,0.3); height: 8px; border-radius: 4px;">
+                                <div style="background: #4CAF50; height: 100%; width: ${percentage}%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            results.innerHTML = html;
+        }
+        
+        // 模拟开箱
+        function simulateOpenContainer() {
+            const containerSelect = document.getElementById('container-select');
+            const containerId = containerSelect.value;
+            
+            if (!containerId) {
+                alert('请先选择一个容器');
+                return;
+            }
+            
+            const container = gameData.containers[containerId];
+            const availableLayouts = container.layoutIds.map(layoutId => ({
+                id: layoutId,
+                ...gameData.layouts[layoutId],
+                weight: gameData.layouts[layoutId].weight !== undefined ? gameData.layouts[layoutId].weight : 1
+            }));
+            
+            const selectedLayout = selectLayout(availableLayouts);
+            
+            const results = document.getElementById('container-test-results');
+            results.innerHTML = `
+                <h4>🎁 开箱结果：</h4>
+                <p><strong>容器：</strong> ${container.name}</p>
+                <p><strong>选中布局：</strong> ${selectedLayout.name || selectedLayout.id} <span class="weight-info">权重: ${selectedLayout.weight}</span></p>
+                <p><strong>物品数量：</strong> ${selectedLayout.positions ? selectedLayout.positions.length : 0}</p>
+                <p><strong>可选布局：</strong> ${availableLayouts.map(l => `${l.name || l.id}(${l.weight})`).join(', ')}</p>
+            `;
+        }
+        
+        // 清空结果
+        function clearResults() {
+            document.getElementById('weight-test-results').innerHTML = '';
+            document.getElementById('container-test-results').innerHTML = '';
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('load', loadGameData);
+    </script>
+</body>
+</html>

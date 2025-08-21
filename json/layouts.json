@@ -1,0 +1,678 @@
+{
+  "slot_1": {
+    "name": "大保险箱1",
+    "description": "",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660495348_87w5",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660499053_kcz6",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660500230_c02r",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "slot_2": {
+    "id": "slot_2",
+    "name": "小保险箱1",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "2x1",
+        "isSlot": true,
+        "slotId": "slot_005",
+        "weight": 80
+      },
+      {
+        "x": 0,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_006",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_007",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_008",
+        "weight": 90
+      }
+    ],
+    "weight": 5
+  },
+  "slot_3": {
+    "id": "slot_3",
+    "name": "高级占位布局",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "2x2",
+        "isSlot": true,
+        "slotId": "slot_009",
+        "weight": 60
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_010",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_011",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_012",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_013",
+        "weight": 100
+      }
+    ],
+    "weight": 5
+  },
+  "slot_4": {
+    "id": "slot_4",
+    "name": "复合占位布局",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_014",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "3x1",
+        "isSlot": true,
+        "slotId": "slot_015",
+        "weight": 50
+      },
+      {
+        "x": 0,
+        "y": 1,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_016",
+        "weight": 80
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_017",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_018",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 1,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_019",
+        "weight": 100
+      }
+    ],
+    "weight": 5
+  },
+  "slot_5": {
+    "id": "slot_5",
+    "name": "精密占位布局",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x3",
+        "isSlot": true,
+        "slotId": "slot_020",
+        "weight": 70
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_021",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_022",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_023",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "size": "2x1",
+        "isSlot": true,
+        "slotId": "slot_024",
+        "weight": 85
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_025",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 2,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_026",
+        "weight": 100
+      }
+    ],
+    "weight": 4
+  },
+  "slot_6": {
+    "id": "slot_6",
+    "name": "大型占位布局",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "2x2",
+        "isSlot": true,
+        "slotId": "slot_027",
+        "weight": 60
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "2x2",
+        "isSlot": true,
+        "slotId": "slot_028",
+        "weight": 60
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_029",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_030",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 2,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_031",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 2,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_032",
+        "weight": 100
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "size": "4x1",
+        "isSlot": true,
+        "slotId": "slot_033",
+        "weight": 40
+      }
+    ],
+    "weight": 4
+  },
+  "1_1": {
+    "name": "大保险箱2",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660514966_8b1i",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660515948_2ouy",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660516912_2pc5",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_2": {
+    "name": "大保险箱3",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660567541_wab1",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660568836_hinm",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660570144_gh7p",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_3": {
+    "name": "大保险箱4",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 4,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660631049_n00k",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "3x3",
+        "isSlot": true,
+        "slotId": "slot_3x3_1755660632394_4fxu",
+        "weight": 100
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660633623_j6ik",
+        "weight": 100
+      }
+    ],
+    "weight": 1
+  },
+  "1_4": {
+    "name": "大保险箱5",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 1,
+        "y": 0,
+        "size": "3x2",
+        "isSlot": true,
+        "slotId": "slot_3x2_1755660619918_hhdt",
+        "weight": 100
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660622423_bu2u",
+        "weight": 100
+      },
+      {
+        "x": 4,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660623484_qibo",
+        "weight": 100
+      }
+    ],
+    "weight": 30
+  },
+  "1_5": {
+    "name": "大保险箱6",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660653599_bf9i",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660654978_lkv4",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_6": {
+    "name": "大保险箱7",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "2x1",
+        "isSlot": true,
+        "slotId": "slot_2x1_1755660675469_wnow",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_7": {
+    "name": "大保险箱8",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660696295_oy15",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660697469_u0jd",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_8": {
+    "name": "大保险箱9",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660713735_qxiq",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660715625_nza2",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_9": {
+    "name": "大保险箱10",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660735396_8pri",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660736685_efsl",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755660737929_qvwq",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_10": {
+    "name": "大保险箱11",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660783530_l13x",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "2x1",
+        "isSlot": true,
+        "slotId": "slot_2x1_1755660785471_qdfw",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755660786502_wcyi",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_11": {
+    "name": "大保险箱12",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755671434780_jp3x",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755671436640_nvaa",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "2x2",
+        "isSlot": true,
+        "slotId": "slot_2x2_1755671440807_r114",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_12": {
+    "name": "大保险箱13",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755671546186_47tb",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "2x2",
+        "isSlot": true,
+        "slotId": "slot_2x2_1755671550303_q4uc",
+        "weight": 100
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755671551649_ps6z",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_13": {
+    "name": "大宝箱箱14",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755671613179_yiw4",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  },
+  "1_14": {
+    "name": "大保险箱15",
+    "description": "使用布局编辑器创建",
+    "positions": [
+      {
+        "x": 0,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755671640535_0vmn",
+        "weight": 100
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "size": "1x2",
+        "isSlot": true,
+        "slotId": "slot_1x2_1755671641916_75h2",
+        "weight": 100
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "size": "1x1",
+        "isSlot": true,
+        "slotId": "slot_1x1_1755671643066_afi0",
+        "weight": 100
+      }
+    ],
+    "weight": 50
+  }
+}

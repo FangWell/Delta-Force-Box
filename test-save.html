@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>容器保存测试</title>
+</head>
+<body>
+    <h1>容器保存功能测试</h1>
+    <button onclick="testSave()">测试保存</button>
+    <div id="result"></div>
+
+    <script>
+        async function testSave() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>正在测试...</p>';
+            
+            try {
+                // 测试数据
+                const testContainer = {
+                    id: "999",
+                    name: "测试容器",
+                    desc: "这是一个测试容器",
+                    quality: 1,
+                    width: 5,
+                    height: 5,
+                    cost: 100,
+                    color: '#4CAF50',
+                    minItems: 3,
+                    maxItems: 6,
+                    description: '测试描述',
+                    itemPool: ["1", "2", "3"]
+                };
+
+                console.log('发送测试数据:', testContainer);
+
+                const response = await fetch('http://localhost:3001/api/containers/999', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testContainer)
+                });
+
+                console.log('响应状态:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP错误 ${response.status}: ${errorText}`);
+                }
+
+                const result = await response.json();
+                console.log('保存结果:', result);
+
+                resultDiv.innerHTML = `
+                    <p style="color: green;">✅ 保存成功!</p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('测试失败:', error);
+                resultDiv.innerHTML = `
+                    <p style="color: red;">❌ 测试失败: ${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
