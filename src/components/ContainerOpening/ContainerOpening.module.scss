@@ -134,3 +134,174 @@
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.3);
 }
+
+// 移动端响应式样式
+@media (max-width: 1024px) {
+  .container {
+    padding: 15px;
+    gap: 18px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .containerName {
+    font-size: 18px;
+  }
+  
+  .gridContainer {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .header {
+    margin-bottom: 15px;
+  }
+  
+  .title {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .containerName {
+    font-size: 16px;
+  }
+  
+  .gridContainer {
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .openButton, .skipButton {
+    width: 100%;
+    max-width: 250px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .log {
+    min-width: unset;
+    width: 100%;
+    padding: 15px;
+    
+    h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+  }
+  
+  .logItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 10px;
+  }
+  
+  .logName {
+    font-size: 14px;
+  }
+  
+  .logQuality {
+    font-size: 12px;
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+    gap: 12px;
+  }
+  
+  .header {
+    margin-bottom: 12px;
+  }
+  
+  .title {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  
+  .containerName {
+    font-size: 15px;
+  }
+  
+  .gridContainer {
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  .openButton, .skipButton {
+    max-width: none;
+    padding: 10px 16px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  
+  .log {
+    padding: 12px;
+    
+    h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  .logItem {
+    padding: 8px;
+  }
+  
+  .logName {
+    font-size: 13px;
+  }
+  
+  .logQuality {
+    font-size: 11px;
+    padding: 1px 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 5px;
+    gap: 10px;
+  }
+  
+  .title {
+    font-size: 16px;
+  }
+  
+  .containerName {
+    font-size: 14px;
+  }
+  
+  .openButton, .skipButton {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  
+  .log {
+    padding: 10px;
+    
+    h3 {
+      font-size: 14px;
+    }
+  }
+  
+  .logItem {
+    padding: 6px;
+  }
+}

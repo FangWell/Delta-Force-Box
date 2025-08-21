@@ -1,0 +1,566 @@
+// 切换按钮样式
+.toggleButton {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+
+  &:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// 遮罩层
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+}
+
+// 主面板
+.panel {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+// 头部
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+}
+
+.closeButton {
+  padding: 8px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #e5e7eb;
+    color: #374151;
+  }
+}
+
+// 内容区域
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+// 分节
+.section {
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 8px;
+  }
+}
+
+// 总览统计
+.overviewStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+
+  .label {
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .value {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 16px;
+  }
+}
+
+// 统计列表
+.statsList, .itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statsItem, .itemStatsItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+
+  .itemNameWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0; // 允许子元素收缩
+  }
+
+  .name {
+    font-weight: 500;
+    color: #1f2937;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .quality {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .count {
+    font-weight: 600;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+}
+
+.itemCounts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .count {
+    font-weight: 600;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .percentage {
+    font-size: 12px;
+    color: #6b7280;
+    min-width: 50px;
+    text-align: right;
+  }
+}
+
+.percentage {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+// 空状态
+.emptyState {
+  text-align: center;
+  padding: 48px 24px;
+  color: #6b7280;
+
+  p:first-child {
+    font-size: 48px;
+    margin: 0 0 16px 0;
+  }
+
+  p:nth-child(2) {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: #374151;
+  }
+
+  p:last-child {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+// 操作按钮
+.actions {
+  padding: 20px 24px;
+  border-top: 1px solid #e5e7eb;
+  background: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clearButton {
+  padding: 10px 20px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #b91c1c;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+// 响应式设计 - 全面的移动端优化
+@media (max-width: 1024px) {
+  .panel {
+    width: 95%;
+    max-width: none;
+    margin: 10px;
+  }
+
+  .overviewStats {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .toggleButton {
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .panel {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    padding: 16px;
+    flex-shrink: 0;
+    
+    h2 {
+      font-size: 18px;
+    }
+  }
+
+  .content {
+    padding: 16px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .overviewStats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .statItem {
+    padding: 10px 12px;
+    font-size: 14px;
+    
+    .label {
+      font-size: 13px;
+    }
+    
+    .value {
+      font-size: 15px;
+    }
+  }
+
+  .statsItem, .itemStatsItem {
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .itemInfo {
+    width: 100%;
+    justify-content: flex-start;
+    
+    .itemNameWrapper {
+      flex: 1;
+      
+      .name {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+      
+      .quality {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .itemCounts {
+    width: 100%;
+    justify-content: space-between;
+    
+    .count {
+      font-size: 13px;
+    }
+    
+    .percentage {
+      font-size: 11px;
+    }
+  }
+
+  .actions {
+    padding: 16px;
+    flex-shrink: 0;
+  }
+
+  .clearButton {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggleButton {
+    padding: 6px 10px;
+    font-size: 11px;
+    min-width: 50px;
+  }
+
+  .header {
+    padding: 12px;
+    
+    h2 {
+      font-size: 16px;
+    }
+  }
+
+  .content {
+    padding: 12px;
+  }
+
+  .section {
+    margin-bottom: 20px;
+    
+    h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .overviewStats {
+    gap: 8px;
+  }
+
+  .statItem {
+    padding: 8px 10px;
+    font-size: 13px;
+    
+    .label {
+      font-size: 12px;
+    }
+    
+    .value {
+      font-size: 14px;
+    }
+  }
+
+  .statsItem, .itemStatsItem {
+    padding: 10px;
+  }
+
+  .itemInfo {
+    .itemNameWrapper {
+      .name {
+        font-size: 13px;
+      }
+      
+      .quality {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .itemCounts {
+    .count {
+      font-size: 12px;
+      padding: 2px 6px;
+    }
+    
+    .percentage {
+      font-size: 10px;
+    }
+  }
+
+  .emptyState {
+    padding: 32px 16px;
+    
+    p:first-child {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+    
+    p:nth-child(2) {
+      font-size: 16px;
+    }
+    
+    p:last-child {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .toggleButton {
+    padding: 5px 8px;
+    font-size: 10px;
+    min-width: 45px;
+  }
+
+  .header {
+    padding: 10px;
+    
+    h2 {
+      font-size: 15px;
+    }
+    
+    .closeButton {
+      padding: 6px;
+      font-size: 18px;
+    }
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .section {
+    h3 {
+      font-size: 15px;
+    }
+  }
+
+  .statItem {
+    padding: 6px 8px;
+    font-size: 12px;
+    
+    .label {
+      font-size: 11px;
+    }
+    
+    .value {
+      font-size: 13px;
+    }
+  }
+
+  .itemInfo {
+    .itemNameWrapper {
+      .name {
+        font-size: 12px;
+      }
+      
+      .quality {
+        font-size: 9px;
+      }
+    }
+  }
+
+  .itemCounts {
+    .count {
+      font-size: 11px;
+      padding: 1px 5px;
+    }
+    
+    .percentage {
+      font-size: 9px;
+    }
+  }
+}

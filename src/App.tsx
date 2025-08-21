@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import ContainerOpening from './components/ContainerOpening/ContainerOpening';
-import { GameConfig } from './types';
+import StatisticsPanel from './components/Statistics/StatisticsPanel';
+import { GameConfig, Statistics } from './types';
 import { loadGameConfig } from './utils/dataLoader';
 import { generateContainerItems } from './utils/gameLogic';
+import { loadStatistics } from './utils/statistics';
 import styles from './App.module.scss';
 
 function App() {
@@ -11,6 +13,15 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  
+  // 统计相关状态
+  const [statistics, setStatistics] = useState<Statistics>(() => loadStatistics());
+  const [showStatistics, setShowStatistics] = useState(false);
+
+  // 更新统计数据
+  const handleStatisticsUpdate = () => {
+    setStatistics(loadStatistics());
+  };
 
   // 加载游戏配置
   useEffect(() => {
@@ -139,11 +150,21 @@ function App() {
         gameConfig={gameConfig}
         containerName={selectedContainer}
         onAnimationStateChange={setIsAnimating}
+        onStatisticsUpdate={handleStatisticsUpdate}
       />
       
       <div className={styles.footer}>
         <p>三角洲行动容器开启模拟器 v1.0</p>
       </div>
+
+      {/* 统计面板 */}
+      <StatisticsPanel 
+        statistics={statistics}
+        gameConfig={gameConfig}
+        onStatisticsChange={setStatistics}
+        isVisible={showStatistics}
+        onToggleVisibility={() => setShowStatistics(!showStatistics)}
+      />
     </div>
   );
 }

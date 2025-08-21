@@ -156,3 +156,179 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+// 移动端响应式样式
+@media (max-width: 1024px) {
+  .app {
+    padding: 15px;
+  }
+  
+  .containerSelector {
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    margin-bottom: 25px;
+    
+    label {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 10px;
+  }
+  
+  .containerSelector {
+    padding: 12px;
+    margin-bottom: 20px;
+    
+    label {
+      font-size: 14px;
+    }
+  }
+  
+  .select {
+    width: 100%;
+    max-width: 250px;
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+  
+  .testButton {
+    width: 100%;
+    max-width: 250px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .loading {
+    height: 40vh;
+    gap: 15px;
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+    }
+    
+    p {
+      font-size: 16px;
+    }
+  }
+  
+  .error {
+    height: 40vh;
+    gap: 15px;
+    padding: 0 10px;
+    
+    h2 {
+      font-size: 20px;
+    }
+    
+    p {
+      font-size: 14px;
+    }
+    
+    button {
+      width: 100%;
+      max-width: 200px;
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+  
+  .footer {
+    margin-top: 30px;
+    padding: 15px;
+    
+    p {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 8px;
+  }
+  
+  .containerSelector {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    
+    label {
+      font-size: 13px;
+    }
+  }
+  
+  .select {
+    max-width: none;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  
+  .testButton {
+    max-width: none;
+    width: 100%;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  
+  .loading {
+    height: 35vh;
+    
+    .spinner {
+      width: 35px;
+      height: 35px;
+    }
+    
+    p {
+      font-size: 14px;
+    }
+  }
+  
+  .error {
+    height: 35vh;
+    
+    h2 {
+      font-size: 18px;
+    }
+    
+    p {
+      font-size: 13px;
+    }
+  }
+  
+  .footer {
+    margin-top: 20px;
+    padding: 10px;
+    
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding: 5px;
+  }
+  
+  .containerSelector {
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .select {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  
+  .testButton {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}

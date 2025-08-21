@@ -7,7 +7,8 @@ import {
   AssignedItem, 
   GameConfig, 
   Container, 
-  Item
+  Item,
+  StatisticsEvent
 } from '../../types';
 import {
   generateContainerItems,
@@ -15,12 +16,14 @@ import {
   QUALITY_DURATIONS,
   QUALITY_COLORS
 } from '../../utils/gameLogic';
+import { recordOpeningEvent } from '../../utils/statistics';
 import styles from './ContainerOpening.module.scss';
 
 interface ContainerOpeningProps {
   gameConfig: GameConfig;
   containerName: string;
   onAnimationStateChange?: (isAnimating: boolean) => void;
+  onStatisticsUpdate?: () => void; // 新增：统计数据更新回调
 }
 
 // 开启状态枚举
@@ -33,7 +36,8 @@ enum OpeningState {
 const ContainerOpening: React.FC<ContainerOpeningProps> = ({ 
   gameConfig, 
   containerName,
-  onAnimationStateChange
+  onAnimationStateChange,
+  onStatisticsUpdate // 新增：统计数据更新回调
 }) => {
   const [assignedItems, setAssignedItems] = useState<AssignedItem[]>([]);
   const [revealedItems, setRevealedItems] = useState<AssignedItem[]>([]);
@@ -116,6 +120,22 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
       
       // 开始揭示动画
       await performRevealAnimation(newAssignedItems);
+      
+      // 记录统计数据
+      if (!animationCancelRef.current) {
+        const container = gameConfig.containers[containerName];
+        const statisticsEvent: StatisticsEvent = {
+          containerName: containerName,
+          containerDisplayName: container?.name || containerName,
+          items: newAssignedItems.map(item => item.item),
+          timestamp: Date.now()
+        };
+        
+        recordOpeningEvent(statisticsEvent);
+        
+        // 通知父组件统计数据已更新
+        onStatisticsUpdate?.();
+      }
       
     } catch (error) {
       console.error('Error during container opening:', error);

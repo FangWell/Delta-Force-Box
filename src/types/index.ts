@@ -59,3 +59,21 @@ export interface AssignedItem {
 export interface QualityDurations {
   [key: string]: number;
 }
+
+// 统计数据接口
+export interface Statistics {
+  containersOpened: Record<string, number>; // 各容器开启次数
+  itemsObtained: Record<string, number>;    // 各物品获得次数
+  totalContainers: number;                  // 总开启容器数
+  totalItems: number;                       // 总获得物品数
+  firstOpenTime: number;                    // 首次开启时间
+  lastOpenTime: number;                     // 最后开启时间
+}
+
+// 统计事件类型
+export interface StatisticsEvent {
+  containerName: string;
+  containerDisplayName: string;
+  items: Item[];
+  timestamp: number;
+}
