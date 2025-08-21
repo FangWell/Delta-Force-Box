@@ -43,3 +43,22 @@
   font-style: italic;
   margin-top: 1px;
 }
+
+// 响应式字体大小 - 仅对移动设备
+@media (max-width: 480px) {
+  .itemName {
+    font-size: 10px;
+  }
+
+  .itemQuality {
+    font-size: 8px;
+  }
+
+  .itemCategory {
+    font-size: 7px;
+  }
+
+  .item {
+    border-width: 1px;
+  }
+}

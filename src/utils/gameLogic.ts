@@ -28,6 +28,45 @@ export const GRID_CONFIG = {
   PADDING: 10  // 网格容器的padding
 };
 
+// 响应式网格配置 - 根据屏幕宽度动态调整
+export function getResponsiveGridConfig() {
+  const screenWidth = window.innerWidth;
+  
+  // 桌面端使用固定配置，移动端才使用响应式
+  if (screenWidth > 768) {
+    return GRID_CONFIG;
+  }
+  
+  const gridSize = 4;
+  
+  // 为移动端计算合适的参数
+  if (screenWidth <= 480) {
+    const gap = 3;
+    const padding = 6;
+    // 保守计算，确保网格能够显示
+    const availableWidth = screenWidth - 40; // 留出余量
+    const totalGapWidth = (gridSize - 1) * gap;
+    const totalPadding = padding * 2;
+    const availableCellWidth = availableWidth - totalGapWidth - totalPadding;
+    const cellSize = Math.floor(availableCellWidth / gridSize);
+    
+    return {
+      CELL_SIZE: Math.max(cellSize, 50), // 最小50px保证可用性
+      GAP: gap,
+      GRID_SIZE: gridSize,
+      PADDING: padding
+    };
+  } else {
+    // 768px以下但大于480px的中等屏幕
+    return {
+      CELL_SIZE: 65,
+      GAP: 4,
+      GRID_SIZE: gridSize,
+      PADDING: 8
+    };
+  }
+}
+
 /**
  * 解析尺寸字符串为数字数组
  * @param sizeStr 尺寸字符串，如 "2x3"
@@ -216,10 +255,10 @@ export function generateContainerItems(container: Container, items: Item[]): Ass
 }
 
 /**
- * 计算物品在网格中的像素位置和大小
+ * 计算物品在网格中的位置和尺寸
  * @param gridPos 网格位置 [x, y]
- * @param gridSize 网格大小 [width, height]
- * @returns 位置和大小信息
+ * @param gridSize 网格尺寸 [width, height]
+ * @returns 位置和尺寸信息
  */
 export function calculateItemPosition(gridPos: [number, number], gridSize: [number, number]): {
   left: number;
@@ -229,7 +268,8 @@ export function calculateItemPosition(gridPos: [number, number], gridSize: [numb
 } {
   const [x, y] = gridPos;
   const [width, height] = gridSize;
-  const { CELL_SIZE, GAP, PADDING } = GRID_CONFIG;
+  const gridConfig = getResponsiveGridConfig();
+  const { CELL_SIZE, GAP, PADDING } = gridConfig;
   
   return {
     left: x * (CELL_SIZE + GAP) + PADDING,

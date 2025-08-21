@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Item, CATEGORY_NAMES } from '../../types';
 import { calculateItemPosition, QUALITY_COLORS } from '../../utils/gameLogic';
 import styles from './ItemComponent.module.scss';
@@ -16,7 +16,20 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   size, 
   onClick 
 }) => {
-  const position = calculateItemPosition(pos, size);
+  const [position, setPosition] = useState(() => 
+    calculateItemPosition(pos, size)
+  );
+
+  // 监听窗口大小变化，重新计算位置
+  useEffect(() => {
+    const handleResize = () => {
+      setPosition(calculateItemPosition(pos, size));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [pos, size]);
+
   const backgroundColor = QUALITY_COLORS[item.quality] || '#9E9E9E';
   
   // 质量名称映射

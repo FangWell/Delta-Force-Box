@@ -2,40 +2,12 @@
   position: relative;
   display: grid;
   background: #333;
-  padding: 10px;
   border-radius: 8px;
+  // padding现在通过内联样式动态设置
 }
 
 .cell {
   background: #666;
   border: 1px solid #444;
   border-radius: 4px;
-}
-
-// 移动端响应式样式
-@media (max-width: 768px) {
-  .grid {
-    padding: 8px;
-    border-radius: 6px;
-    // 确保网格在小屏幕上不会溢出
-    max-width: 100%;
-    overflow: hidden;
-  }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    padding: 6px;
-    border-radius: 4px;
-  }
-  
-  .cell {
-    border-radius: 2px;
-  }
-}
-
-@media (max-width: 360px) {
-  .grid {
-    padding: 4px;
-  }
 }
