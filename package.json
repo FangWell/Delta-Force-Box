@@ -14,7 +14,13 @@
     "xlsx:create": "node tools/xlsx-converter.js create-templates",
     "xlsx:convert": "node tools/xlsx-converter.js convert",
     "xlsx:all": "node tools/xlsx-converter.js all",
-    "layout:editor": "open tools/layout-editor.html"
+    "layout:editor": "open tools/layout-editor.html",
+    "deploy:github": "./deploy-github.sh",
+    "deploy:server": "./deploy-server.sh",
+    "docker:build": "docker build -t delta-force-simulator .",
+    "docker:run": "docker-compose up -d",
+    "docker:stop": "docker-compose down",
+    "start:prod": "NODE_ENV=production npm run build && npm run preview"
   },
   "dependencies": {
     "@types/node": "^24.3.0",

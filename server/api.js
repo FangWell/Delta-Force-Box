@@ -384,16 +384,14 @@ app.put('/api/containers/:containerId',
     } else {
       // 普通更新操作（支持数字ID）
       if (!containers[containerId]) {
-        return res.status(404).json({ 
-          success: false,
-          error: '容器不存在',
-          message: `容器 ${containerId} 不存在`
-        });
+        // 如果容器不存在，创建新容器
+        containers[containerId] = containerData;
+        console.log(`🆕 创建新容器 ${containerId}:`, containers[containerId]);
+      } else {
+        // 合并更新数据
+        containers[containerId] = { ...containers[containerId], ...containerData };
+        console.log(`🔧 容器 ${containerId} 更新后数据:`, containers[containerId]);
       }
-      
-      // 合并更新数据
-      containers[containerId] = { ...containers[containerId], ...containerData };
-      console.log(`🔧 容器 ${containerId} 更新后数据:`, containers[containerId]);
     }
     
     // 写回容器文件

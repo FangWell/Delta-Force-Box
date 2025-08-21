@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  delta-force-app:
+    build: .
+    ports:
+      - "80:80"      # Nginx前端服务
+      - "3001:3001"  # API服务
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    volumes:
+      - ./json:/app/json
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 可选：Redis缓存
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # 可选：监控服务
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  portainer_data:

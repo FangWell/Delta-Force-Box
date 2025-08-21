@@ -1017,7 +1017,7 @@
     "category": 1,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "103",
@@ -1027,7 +1027,7 @@
     "category": 7,
     "size": "1x3",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "104",
@@ -1037,7 +1037,7 @@
     "category": 7,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "105",
@@ -1047,7 +1047,7 @@
     "category": 7,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "106",
@@ -1057,7 +1057,7 @@
     "category": 6,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "107",
@@ -1067,7 +1067,7 @@
     "category": 6,
     "size": "1x3",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "108",
@@ -1077,7 +1077,7 @@
     "category": 6,
     "size": "1x3",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "109",
@@ -1087,7 +1087,7 @@
     "category": 6,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "110",
@@ -1097,7 +1097,7 @@
     "category": 6,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "111",
@@ -1107,7 +1107,7 @@
     "category": 6,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "112",
@@ -1117,7 +1117,7 @@
     "category": 5,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "113",
@@ -1127,7 +1127,7 @@
     "category": 5,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "114",
@@ -1137,7 +1137,7 @@
     "category": 5,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "115",
@@ -1147,7 +1147,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "116",
@@ -1157,7 +1157,7 @@
     "category": 4,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "117",
@@ -1167,7 +1167,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "118",
@@ -1177,7 +1177,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "119",
@@ -1187,7 +1187,7 @@
     "category": 4,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "120",
@@ -1197,7 +1197,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "121",
@@ -1207,7 +1207,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "122",
@@ -1217,7 +1217,7 @@
     "category": 4,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "123",
@@ -1227,7 +1227,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "124",
@@ -1237,7 +1237,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "125",
@@ -1247,7 +1247,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "126",
@@ -1257,7 +1257,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "127",
@@ -1267,7 +1267,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "128",
@@ -1277,7 +1277,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "129",
@@ -1287,7 +1287,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "130",
@@ -1297,7 +1297,7 @@
     "category": 3,
     "size": "4x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "131",
@@ -1307,7 +1307,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "132",
@@ -1317,7 +1317,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "133",
@@ -1327,7 +1327,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "134",
@@ -1337,7 +1337,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "135",
@@ -1347,7 +1347,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "136",
@@ -1357,7 +1357,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "137",
@@ -1367,7 +1367,7 @@
     "category": 2,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "138",
@@ -1377,7 +1377,7 @@
     "category": 2,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "139",
@@ -1387,7 +1387,7 @@
     "category": 2,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "140",
@@ -1397,7 +1397,7 @@
     "category": 2,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "141",
@@ -1407,7 +1407,7 @@
     "category": 2,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "142",
@@ -1417,7 +1417,7 @@
     "category": 2,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "143",
@@ -1427,7 +1427,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "144",
@@ -1437,7 +1437,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "145",
@@ -1447,7 +1447,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "146",
@@ -1457,7 +1457,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "147",
@@ -1467,7 +1467,7 @@
     "category": 2,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "148",
@@ -1477,7 +1477,7 @@
     "category": 2,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "149",
@@ -1487,57 +1487,57 @@
     "category": 2,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "150",
     "name": "源石碎片",
     "desc": "工艺藏品",
     "quality": 3,
-    "category": 2,
+    "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "151",
     "name": "初级子弹生产零件",
     "desc": "工艺藏品",
     "quality": 3,
-    "category": 2,
+    "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 100
   },
   {
     "id": "152",
     "name": "“起舞的女郎”挂饰",
     "desc": "工艺藏品",
     "quality": 3,
-    "category": 2,
+    "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 120
   },
   {
     "id": "153",
     "name": "古老的海盗望远镜",
     "desc": "工艺藏品",
     "quality": 3,
-    "category": 2,
+    "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 120
   },
   {
     "id": "154",
     "name": "古怪的海盗银币",
     "desc": "工艺藏品",
     "quality": 3,
-    "category": 2,
+    "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 50
+    "weight": 120
   },
   {
     "id": "155",
@@ -1547,7 +1547,7 @@
     "category": 7,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "156",
@@ -1557,7 +1557,7 @@
     "category": 7,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "157",
@@ -1567,7 +1567,7 @@
     "category": 7,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "158",
@@ -1577,7 +1577,7 @@
     "category": 7,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "159",
@@ -1587,7 +1587,7 @@
     "category": 6,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "160",
@@ -1597,7 +1597,7 @@
     "category": 6,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "161",
@@ -1607,7 +1607,7 @@
     "category": 6,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "162",
@@ -1617,7 +1617,7 @@
     "category": 6,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "163",
@@ -1627,7 +1627,7 @@
     "category": 6,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "164",
@@ -1637,7 +1637,7 @@
     "category": 6,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "165",
@@ -1647,7 +1647,7 @@
     "category": 5,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "166",
@@ -1657,7 +1657,7 @@
     "category": 5,
     "size": "1x3",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "167",
@@ -1667,7 +1667,7 @@
     "category": 5,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "168",
@@ -1677,7 +1677,7 @@
     "category": 5,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "169",
@@ -1687,7 +1687,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "170",
@@ -1697,7 +1697,7 @@
     "category": 4,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "171",
@@ -1707,7 +1707,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "172",
@@ -1717,7 +1717,7 @@
     "category": 4,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "173",
@@ -1727,7 +1727,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "174",
@@ -1737,7 +1737,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "175",
@@ -1747,7 +1747,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "176",
@@ -1757,7 +1757,7 @@
     "category": 3,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "177",
@@ -1767,7 +1767,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "178",
@@ -1777,7 +1777,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "179",
@@ -1787,7 +1787,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "180",
@@ -1797,7 +1797,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "181",
@@ -1807,7 +1807,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "182",
@@ -1817,7 +1817,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "183",
@@ -1827,7 +1827,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "184",
@@ -1837,7 +1837,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "185",
@@ -1847,7 +1847,7 @@
     "category": 3,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "186",
@@ -1857,7 +1857,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "187",
@@ -1867,7 +1867,7 @@
     "category": 2,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "188",
@@ -1877,7 +1877,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "189",
@@ -1887,7 +1887,7 @@
     "category": 2,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "190",
@@ -1897,7 +1897,7 @@
     "category": 2,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "191",
@@ -1907,7 +1907,7 @@
     "category": 2,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "192",
@@ -1917,7 +1917,7 @@
     "category": 2,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "193",
@@ -1927,7 +1927,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "194",
@@ -1937,7 +1937,7 @@
     "category": 2,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "195",
@@ -1947,7 +1947,7 @@
     "category": 2,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "196",
@@ -1957,7 +1957,7 @@
     "category": 2,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "197",
@@ -1967,7 +1967,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "198",
@@ -1977,7 +1977,7 @@
     "category": 1,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "199",
@@ -1987,7 +1987,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "200",
@@ -1997,7 +1997,7 @@
     "category": 1,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "201",
@@ -2007,7 +2007,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "202",
@@ -2017,7 +2017,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "203",
@@ -2027,7 +2027,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "204",
@@ -2037,7 +2037,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "205",
@@ -2047,7 +2047,7 @@
     "category": 1,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 48
   },
   {
     "id": "206",
@@ -2057,7 +2057,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "207",
@@ -2067,7 +2067,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 12
+    "weight": 24
   },
   {
     "id": "208",
@@ -2477,7 +2477,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 5
+    "weight": 1
   },
   {
     "id": "249",
@@ -2537,7 +2537,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 5
+    "weight": 1
   },
   {
     "id": "255",
@@ -2577,7 +2577,7 @@
     "category": 1,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 5
+    "weight": 1
   },
   {
     "id": "259",
@@ -2637,7 +2637,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 5
+    "weight": 7
   },
   {
     "id": "265",
@@ -2647,7 +2647,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 5
+    "weight": 7
   },
   {
     "id": "266",
@@ -2657,7 +2657,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 5
+    "weight": 7
   },
   {
     "id": "267",
@@ -2667,7 +2667,7 @@
     "category": 7,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "268",
@@ -2677,7 +2677,7 @@
     "category": 7,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "269",
@@ -2687,7 +2687,7 @@
     "category": 7,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "270",
@@ -2697,7 +2697,7 @@
     "category": 7,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "271",
@@ -2707,7 +2707,7 @@
     "category": 7,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "272",
@@ -2717,7 +2717,7 @@
     "category": 7,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "273",
@@ -2727,7 +2727,7 @@
     "category": 6,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "274",
@@ -2737,7 +2737,7 @@
     "category": 6,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "275",
@@ -2747,7 +2747,7 @@
     "category": 6,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "276",
@@ -2757,7 +2757,7 @@
     "category": 6,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "277",
@@ -2767,7 +2767,7 @@
     "category": 6,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "278",
@@ -2777,7 +2777,7 @@
     "category": 5,
     "size": "4x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "279",
@@ -2787,7 +2787,7 @@
     "category": 5,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "280",
@@ -2797,7 +2797,7 @@
     "category": 5,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "281",
@@ -2807,7 +2807,7 @@
     "category": 4,
     "size": "3x4",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "282",
@@ -2837,7 +2837,7 @@
     "category": 4,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "285",
@@ -2847,7 +2847,7 @@
     "category": 4,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "286",
@@ -2857,7 +2857,7 @@
     "category": 4,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "287",
@@ -2867,7 +2867,7 @@
     "category": 3,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "288",
@@ -2877,7 +2877,7 @@
     "category": 3,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "289",
@@ -2887,7 +2887,7 @@
     "category": 3,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "290",
@@ -2897,7 +2897,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "291",
@@ -2907,7 +2907,7 @@
     "category": 3,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "292",
@@ -2917,7 +2917,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "293",
@@ -2927,7 +2927,7 @@
     "category": 3,
     "size": "4x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "294",
@@ -2937,7 +2937,7 @@
     "category": 3,
     "size": "3x4",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "295",
@@ -2947,7 +2947,7 @@
     "category": 3,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "296",
@@ -2957,7 +2957,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "297",
@@ -2967,7 +2967,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "298",
@@ -2977,7 +2977,7 @@
     "category": 3,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "299",
@@ -2987,7 +2987,7 @@
     "category": 3,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "300",
@@ -2997,7 +2997,7 @@
     "category": 2,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "301",
@@ -3007,7 +3007,7 @@
     "category": 2,
     "size": "3x4",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "302",
@@ -3017,7 +3017,7 @@
     "category": 2,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "303",
@@ -3037,7 +3037,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 0.5
   },
   {
     "id": "305",
@@ -3047,7 +3047,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 0.5
   },
   {
     "id": "306",
@@ -3057,7 +3057,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 1
+    "weight": 0.1
   },
   {
     "id": "307",
@@ -3067,7 +3067,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "308",
@@ -3077,7 +3077,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "309",
@@ -3087,7 +3087,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 0.5
   },
   {
     "id": "310",
@@ -3097,7 +3097,7 @@
     "category": 1,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "311",
@@ -3107,7 +3107,7 @@
     "category": 1,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "312",
@@ -3117,7 +3117,7 @@
     "category": 1,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "313",
@@ -3127,7 +3127,7 @@
     "category": 1,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "314",
@@ -3137,7 +3137,7 @@
     "category": 1,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "315",
@@ -3147,7 +3147,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "316",
@@ -3157,7 +3157,7 @@
     "category": 1,
     "size": "3x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "317",
@@ -3167,7 +3167,7 @@
     "category": 1,
     "size": "3x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "318",
@@ -3187,7 +3187,7 @@
     "category": 1,
     "size": "1x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 2
   },
   {
     "id": "320",
@@ -3197,7 +3197,7 @@
     "category": 1,
     "size": "1x1",
     "icon": "/assets/default.png",
-    "weight": 1
+    "weight": 0.1
   },
   {
     "id": "321",
@@ -3207,7 +3207,7 @@
     "category": 1,
     "size": "4x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "322",
@@ -3217,7 +3217,7 @@
     "category": 1,
     "size": "2x1",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "323",
@@ -3227,7 +3227,7 @@
     "category": 1,
     "size": "2x3",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 1
   },
   {
     "id": "324",
@@ -3237,7 +3237,7 @@
     "category": 1,
     "size": "2x2",
     "icon": "/assets/default.png",
-    "weight": 3
+    "weight": 2
   },
   {
     "id": "325",

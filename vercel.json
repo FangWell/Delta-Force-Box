@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "name": "delta-force-simulator",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/layout-editor.html",
+      "dest": "/layout-editor.html"
+    },
+    {
+      "src": "/json/(.*)",
+      "dest": "/json/$1"
+    },
+    {
+      "src": "/excel/(.*)",
+      "dest": "/excel/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/json/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    }
+  ]
+}

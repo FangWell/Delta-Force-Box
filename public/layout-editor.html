@@ -174,6 +174,8 @@
         .quality-2 { background: #4caf50; }
         .quality-3 { background: #2196f3; }
         .quality-4 { background: #9c27b0; }
+        .quality-5 { background: #ff9800; }
+        .quality-6 { background: #f44336; }
 
         /* 编辑器面板 */
         #editor-panel {
@@ -389,11 +391,41 @@
             border: 1px solid rgba(100, 149, 237, 0.5);
         }
 
-        .quality-common { background: #888; }
-        .quality-uncommon { background: #4CAF50; }
-        .quality-rare { background: #2196F3; }
-        .quality-epic { background: #9C27B0; }
-        .quality-legendary { background: #FF9800; }
+        .item-size-badge {
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: bold;
+            background: rgba(255, 152, 0, 0.2);
+            color: #FF9800;
+            border: 1px solid rgba(255, 152, 0, 0.5);
+            font-family: monospace;
+        }
+
+        .item-desc {
+            font-size: 8px;
+            color: #666;
+            margin-top: 2px;
+            max-height: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .quality-common { background: #888; color: white; }
+        .quality-uncommon { background: #4CAF50; color: white; }
+        .quality-rare { background: #2196F3; color: white; }
+        .quality-epic { background: #9C27B0; color: white; }
+        .quality-legendary { background: #FF9800; color: white; }
+        .quality-mythic { background: #F44336; color: white; }
+        
+        /* 中文品质样式 */
+        .quality-普通 { background: #888; color: white; }
+        .quality-优秀 { background: #4CAF50; color: white; }
+        .quality-稀有 { background: #2196F3; color: white; }
+        .quality-史诗 { background: #9C27B0; color: white; }
+        .quality-传说 { background: #FF9800; color: white; }
+        .quality-神话 { background: #F44336; color: white; }
 
         /* 保存状态指示器 */
         .save-indicator {
@@ -762,10 +794,11 @@
                     <div class="item-details">
                         <div class="item-name">${item.name}</div>
                         <div class="item-meta">
-                            <span class="item-quality quality-${qualityName.toLowerCase()}">${qualityName}</span>
+                            <span class="item-quality quality-${qualityName}">${qualityName}</span>
+                            <span class="item-size-badge">${item.size}</span>
                             <span class="item-category">${categoryName}</span>
-                            <span class="item-size">${item.size}</span>
                         </div>
+                        <div class="item-desc">${item.desc || ''}</div>
                     </div>
                 `;
 
@@ -829,13 +862,14 @@
         // 获取品质名称
         function getQualityName(quality) {
             const qualityMap = {
-                1: 'Common',
-                2: 'Uncommon', 
-                3: 'Rare',
-                4: 'Epic',
-                5: 'Legendary'
+                1: '普通',
+                2: '优秀', 
+                3: '稀有',
+                4: '史诗',
+                5: '传说',
+                6: '神话'
             };
-            return qualityMap[quality] || 'Common';
+            return qualityMap[quality] || '普通';
         }
 
         // 选择容器
@@ -988,12 +1022,40 @@
                     throw new Error('请至少选择一个物品');
                 }
 
-                // 更新数据
+                // 调用API保存到服务器
+                console.log('准备保存容器:', updatedContainer.id, updatedContainer.name);
+                console.log('请求URL:', `http://localhost:3001/api/containers/${currentContainer.id}`);
+                console.log('请求数据:', JSON.stringify(updatedContainer, null, 2));
+                
+                const response = await fetch(`http://localhost:3001/api/containers/${currentContainer.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedContainer)
+                });
+
+                console.log('响应状态:', response.status, response.statusText);
+                console.log('响应头:', [...response.headers.entries()]);
+
+                if (!response.ok) {
+                    let errorMessage;
+                    try {
+                        const errorData = await response.json();
+                        errorMessage = errorData.message || `服务器错误: ${response.status}`;
+                    } catch (e) {
+                        const errorText = await response.text();
+                        errorMessage = errorText || `HTTP错误: ${response.status} ${response.statusText}`;
+                    }
+                    throw new Error(errorMessage);
+                }
+
+                const result = await response.json();
+                console.log('保存结果:', result);
+
+                // 更新本地数据
                 containerData[currentContainer.id] = updatedContainer;
                 currentContainer = updatedContainer;
-                
-                // 保存到服务器（这里需要实际的保存逻辑）
-                console.log('保存容器数据:', updatedContainer);
                 
                 // 重新渲染列表
                 renderContainerList();
@@ -1006,27 +1068,50 @@
         }
 
         // 新增容器
-        function addContainer() {
-            const newId = Math.max(...Object.keys(containerData).map(id => parseInt(id))) + 1;
-            const newContainer = {
-                id: newId.toString(),
-                name: `新容器 ${newId}`,
-                desc: '新建的容器',
-                quality: 1,
-                width: 5,
-                height: 5,
-                cost: 100,
-                color: '#4CAF50',
-                minItems: 3,
-                maxItems: 6,
-                description: '',
-                itemPool: []
-            };
-            
-            containerData[newId.toString()] = newContainer;
-            renderContainerList();
-            selectContainer(newId.toString());
-            showMessage('新容器已创建', 'success');
+        async function addContainer() {
+            try {
+                const newId = Math.max(...Object.keys(containerData).map(id => parseInt(id))) + 1;
+                const newContainer = {
+                    id: newId.toString(),
+                    name: `新容器 ${newId}`,
+                    desc: '新建的容器',
+                    quality: 1,
+                    width: 5,
+                    height: 5,
+                    cost: 100,
+                    color: '#4CAF50',
+                    minItems: 3,
+                    maxItems: 6,
+                    description: '',
+                    itemPool: []
+                };
+                
+                // 先在本地添加容器，这样PUT请求就能找到它
+                containerData[newId.toString()] = newContainer;
+                
+                // 调用API创建容器
+                const response = await fetch(`http://localhost:3001/api/containers/${newId.toString()}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newContainer)
+                });
+
+                if (!response.ok) {
+                    // 如果API调用失败，移除本地添加的容器
+                    delete containerData[newId.toString()];
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `服务器错误: ${response.status}`);
+                }
+
+                renderContainerList();
+                selectContainer(newId.toString());
+                showMessage('新容器创建成功', 'success');
+            } catch (error) {
+                console.error('创建容器失败:', error);
+                showMessage('创建失败: ' + error.message, 'error');
+            }
         }
 
         // 重置容器
