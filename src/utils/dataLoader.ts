@@ -7,8 +7,8 @@ export async function loadGameConfig(): Promise<GameConfig> {
   try {
     // 并行加载配置文件
     const [itemsResponse, containersResponse] = await Promise.all([
-      fetch('/json/items.json'),
-      fetch('/json/containers.json')
+      fetch('./json/items.json'),
+      fetch('./json/containers.json')
     ]);
 
     if (!itemsResponse.ok || !containersResponse.ok) {
