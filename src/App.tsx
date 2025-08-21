@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ContainerOpening from './components/ContainerOpening/ContainerOpening';
 import StatisticsPanel from './components/Statistics/StatisticsPanel';
+import GridDebug from './components/GridDebug';
 import { GameConfig, Statistics } from './types';
 import { loadGameConfig } from './utils/dataLoader';
 import { generateContainerItems } from './utils/gameLogic';
@@ -165,6 +166,9 @@ function App() {
         isVisible={showStatistics}
         onToggleVisibility={() => setShowStatistics(!showStatistics)}
       />
+      
+      {/* 临时调试组件 */}
+      {process.env.NODE_ENV === 'development' && <GridDebug />}
     </div>
   );
 }

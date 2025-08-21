@@ -3,6 +3,11 @@
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
   color: #ffffff;
   padding: 20px;
+  
+  // 确保内容能正确布局和显示
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .containerSelector {
@@ -250,7 +255,7 @@
 
 @media (max-width: 480px) {
   .app {
-    padding: 8px;
+    padding: 12px; // 与gameLogic.ts中的appPadding=12保持一致
   }
   
   .containerSelector {
@@ -314,7 +319,7 @@
 
 @media (max-width: 360px) {
   .app {
-    padding: 5px;
+    padding: 10px; // 与gameLogic.ts中的appPadding=10保持一致
   }
   
   .containerSelector {

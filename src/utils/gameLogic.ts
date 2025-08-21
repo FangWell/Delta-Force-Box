@@ -31,40 +31,100 @@ export const GRID_CONFIG = {
 // 响应式网格配置 - 根据屏幕宽度动态调整
 export function getResponsiveGridConfig() {
   const screenWidth = window.innerWidth;
-  
-  // 桌面端使用固定配置，移动端才使用响应式
-  if (screenWidth > 768) {
-    return GRID_CONFIG;
-  }
-  
   const gridSize = 4;
   
-  // 为移动端计算合适的参数
-  if (screenWidth <= 480) {
-    const gap = 3;
-    const padding = 6;
-    // 保守计算，确保网格能够显示
-    const availableWidth = screenWidth - 40; // 留出余量
-    const totalGapWidth = (gridSize - 1) * gap;
-    const totalPadding = padding * 2;
-    const availableCellWidth = availableWidth - totalGapWidth - totalPadding;
-    const cellSize = Math.floor(availableCellWidth / gridSize);
+  // 更准确地计算各种边距和空间占用，并增加视觉缓冲
+  function calculateAvailableSpace() {
+    // App层级的padding (App.module.scss)
+    let appPadding = 20; // 默认
+    if (screenWidth <= 360) appPadding = 10;  // 增加最小边距
+    else if (screenWidth <= 480) appPadding = 12; // 增加边距
+    else if (screenWidth <= 768) appPadding = 15;
+    else if (screenWidth <= 1024) appPadding = 18;
+    
+    // Container层级的padding (ContainerOpening.module.scss)
+    let containerPadding = 20; // 默认
+    if (screenWidth <= 360) containerPadding = 10;  // 增加最小边距
+    else if (screenWidth <= 480) containerPadding = 12; // 增加边距
+    else if (screenWidth <= 768) containerPadding = 15;
+    else if (screenWidth <= 1024) containerPadding = 18;
+    
+    // GridContainer的padding (ContainerOpening.module.scss中的gridContainer)
+    let gridContainerPadding = 15; // 默认
+    if (screenWidth <= 360) gridContainerPadding = 8;  // 增加最小边距
+    else if (screenWidth <= 480) gridContainerPadding = 10; // 增加边距
+    else if (screenWidth <= 768) gridContainerPadding = 12;
+    else if (screenWidth <= 1024) gridContainerPadding = 14;
+    
+    // 预留空间：滚动条、边框、阴影等 + 额外的视觉缓冲
+    let reservedSpace = 40; // 增加基础预留空间
+    if (screenWidth <= 360) reservedSpace = 50;  // 小屏幕需要更多缓冲
+    else if (screenWidth <= 480) reservedSpace = 45;
+    
+    // 计算实际可用宽度
+    const totalHorizontalSpace = (appPadding * 2) + (containerPadding * 2) + (gridContainerPadding * 2) + reservedSpace;
+    const availableWidth = screenWidth - totalHorizontalSpace;
     
     return {
-      CELL_SIZE: Math.max(cellSize, 50), // 最小50px保证可用性
-      GAP: gap,
-      GRID_SIZE: gridSize,
-      PADDING: padding
-    };
-  } else {
-    // 768px以下但大于480px的中等屏幕
-    return {
-      CELL_SIZE: 65,
-      GAP: 4,
-      GRID_SIZE: gridSize,
-      PADDING: 8
+      availableWidth: Math.max(availableWidth, 160), // 降低最小宽度但保证质量
+      gridContainerPadding
     };
   }
+  
+  // 计算网格配置
+  function calculateGridConfig() {
+    const { availableWidth } = calculateAvailableSpace();
+    
+    // 根据屏幕尺寸确定gap大小，在小屏幕上减少gap以节省空间
+    let gap = 4;
+    if (screenWidth <= 360) gap = 1;     // 极小屏幕最小gap
+    else if (screenWidth <= 480) gap = 2; // 小屏幕减小gap
+    else if (screenWidth <= 768) gap = 3;
+    
+    // Grid组件内部的padding，在小屏幕上适当减少
+    let gridPadding = 8;
+    if (screenWidth <= 360) gridPadding = 3;  // 极小屏幕最小padding
+    else if (screenWidth <= 480) gridPadding = 4; // 小屏幕减小padding
+    else if (screenWidth <= 768) gridPadding = 6;
+    
+    // 计算单元格可用宽度
+    const totalGapWidth = (gridSize - 1) * gap;
+    const totalGridPadding = gridPadding * 2;
+    const availableCellSpace = availableWidth - totalGapWidth - totalGridPadding;
+    
+    // 计算单元格大小（向下取整确保不会超出）
+    const cellSize = Math.floor(availableCellSpace / gridSize);
+    
+    // 确保最小尺寸
+    let minCellSize = 30;
+    if (screenWidth >= 768) minCellSize = 50;
+    else if (screenWidth >= 480) minCellSize = 40;
+    
+    return {
+      CELL_SIZE: Math.max(cellSize, minCellSize),
+      GAP: gap,
+      GRID_SIZE: gridSize,
+      PADDING: gridPadding
+    };
+  }
+  
+  // 桌面端使用固定配置（除非空间不够）
+  if (screenWidth >= 1024) {
+    const config = calculateGridConfig();
+    const totalWidth = config.GRID_SIZE * config.CELL_SIZE + 
+                      (config.GRID_SIZE - 1) * config.GAP + 
+                      config.PADDING * 2;
+    
+    // 如果默认配置放得下，使用默认配置
+    if (totalWidth <= calculateAvailableSpace().availableWidth) {
+      return GRID_CONFIG;
+    }
+    // 否则使用计算的配置
+    return config;
+  }
+  
+  // 其他尺寸都使用计算的配置
+  return calculateGridConfig();
 }
 
 /**
