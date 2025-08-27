@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小游戏测试</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .test-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #1a1a2e;
+            border: none;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+        .info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .info h3 {
+            color: #ffd700;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 三角洲行动小游戏系统</h1>
+        
+        <div class="info">
+            <h3>功能介绍</h3>
+            <p>我们已经成功实现了小游戏系统，包括：</p>
+            <ul>
+                <li>🔍 <strong>指纹破译挑战</strong> - 观察并匹配指纹特征</li>
+                <li>⚙️ <strong>容器配置系统</strong> - 在编辑器中设置哪些容器需要小游戏</li>
+                <li>🎯 <strong>难度调节</strong> - 简单、中等、困难三种难度</li>
+                <li>⏱️ <strong>时间限制</strong> - 可配置的挑战时间</li>
+                <li>📱 <strong>响应式设计</strong> - 支持桌面和移动设备</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <h3>测试步骤</h3>
+            <ol>
+                <li>点击下面的"打开主应用"按钮</li>
+                <li>选择"大保险箱"（已配置小游戏）</li>
+                <li>点击"开启容器"按钮</li>
+                <li>完成指纹破译挑战</li>
+                <li>享受开箱体验！</li>
+            </ol>
+        </div>
+
+        <div class="info">
+            <h3>编辑器功能</h3>
+            <p>您可以通过容器编辑器来配置其他容器的小游戏设置：</p>
+            <ul>
+                <li>启用/禁用小游戏</li>
+                <li>选择游戏类型</li>
+                <li>设置难度等级</li>
+                <li>配置时间限制</li>
+                <li>添加游戏说明</li>
+            </ul>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <button class="test-button" onclick="window.open('/', '_blank')">
+                🎯 打开主应用
+            </button>
+            <button class="test-button" onclick="window.open('/container-editor.html', '_blank')">
+                ⚙️ 打开容器编辑器
+            </button>
+        </div>
+
+        <div class="info">
+            <h3>技术实现</h3>
+            <p>小游戏系统采用了模块化设计：</p>
+            <ul>
+                <li><code>MiniGameManager</code> - 游戏管理器，处理游戏生命周期</li>
+                <li><code>FingerprintGame</code> - 指纹破译游戏组件</li>
+                <li><code>FingerprintSVG</code> - SVG指纹渲染组件</li>
+                <li>容器配置扩展 - 支持小游戏设置</li>
+                <li>响应式样式 - 适配各种设备</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

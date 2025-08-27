@@ -596,6 +596,52 @@
                         <textarea id="container-description" placeholder="输入详细描述"></textarea>
                     </div>
                 </div>
+
+                <!-- 小游戏配置 -->
+                <div class="form-section">
+                    <h3>🎮 小游戏配置</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="minigame-enabled"> 
+                                启用开启前小游戏
+                            </label>
+                            <div style="font-size: 12px; color: #aaa; margin-top: 4px;">
+                                开启此选项后，玩家需要完成小游戏才能开启容器
+                            </div>
+                        </div>
+                    </div>
+                    <div id="minigame-config" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>游戏类型</label>
+                                <select id="minigame-type">
+                                    <option value="fingerprint_decipher">🔍 指纹破译挑战</option>
+                                    <option value="memory_match">🧠 记忆匹配游戏</option>
+                                    <option value="puzzle_solve">🧩 拼图解谜游戏</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>游戏难度</label>
+                                <select id="minigame-difficulty">
+                                    <option value="easy">简单</option>
+                                    <option value="medium">中等</option>
+                                    <option value="hard">困难</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>时间限制（秒）</label>
+                                <input type="number" id="minigame-time" min="10" max="300" value="30" placeholder="不填写则无时间限制">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>游戏说明</label>
+                            <textarea id="minigame-description" placeholder="输入游戏说明，将显示给玩家"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -835,6 +881,24 @@
             document.getElementById('max-items').value = container.maxItems || 6;
             document.getElementById('container-description').value = container.description || '';
             
+            // 加载小游戏配置
+            const miniGameEnabled = container.miniGame && container.miniGame.enabled;
+            document.getElementById('minigame-enabled').checked = miniGameEnabled;
+            document.getElementById('minigame-config').style.display = miniGameEnabled ? 'block' : 'none';
+            
+            if (miniGameEnabled && container.miniGame) {
+                document.getElementById('minigame-type').value = container.miniGame.gameType || 'fingerprint_decipher';
+                document.getElementById('minigame-difficulty').value = container.miniGame.difficulty || 'easy';
+                document.getElementById('minigame-time').value = container.miniGame.timeLimit || '';
+                document.getElementById('minigame-description').value = container.miniGame.description || '';
+            } else {
+                // 重置小游戏表单
+                document.getElementById('minigame-type').value = 'fingerprint_decipher';
+                document.getElementById('minigame-difficulty').value = 'easy';
+                document.getElementById('minigame-time').value = '30';
+                document.getElementById('minigame-description').value = '';
+            }
+            
             // 设置选中的物品
             selectedItems.clear();
             if (container.itemPool) {
@@ -905,6 +969,12 @@
                 renderItemGrid();
             });
 
+            // 小游戏配置切换事件
+            document.getElementById('minigame-enabled').addEventListener('change', (e) => {
+                const configDiv = document.getElementById('minigame-config');
+                configDiv.style.display = e.target.checked ? 'block' : 'none';
+            });
+
             // 容器参数变化事件
             ['container-width', 'container-height', 'min-items', 'max-items', 'container-cost'].forEach(id => {
                 document.getElementById(id).addEventListener('input', updatePreview);
@@ -934,6 +1004,21 @@
                     description: document.getElementById('container-description').value,
                     itemPool: Array.from(selectedItems)
                 };
+
+                // 收集小游戏配置
+                const miniGameEnabled = document.getElementById('minigame-enabled').checked;
+                if (miniGameEnabled) {
+                    const timeLimit = parseInt(document.getElementById('minigame-time').value);
+                    updatedContainer.miniGame = {
+                        enabled: true,
+                        gameType: document.getElementById('minigame-type').value,
+                        difficulty: document.getElementById('minigame-difficulty').value,
+                        timeLimit: timeLimit > 0 ? timeLimit : undefined,
+                        description: document.getElementById('minigame-description').value
+                    };
+                } else {
+                    updatedContainer.miniGame = { enabled: false };
+                }
 
                 // 验证数据
                 if (!updatedContainer.name.trim()) {

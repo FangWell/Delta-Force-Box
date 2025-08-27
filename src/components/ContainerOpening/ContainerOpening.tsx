@@ -3,6 +3,7 @@ import Grid from '../Grid/Grid';
 import Placeholder from '../Placeholder/Placeholder';
 import Spinner from '../Spinner/Spinner';
 import ItemComponent from '../Item/ItemComponent';
+import MiniGameManager from '../MiniGames/MiniGameManager';
 import { 
   AssignedItem, 
   GameConfig, 
@@ -29,6 +30,7 @@ interface ContainerOpeningProps {
 // 开启状态枚举
 enum OpeningState {
   IDLE = 'idle',
+  MINI_GAME = 'mini_game',  // 新增：小游戏状态
   OPENING = 'opening',
   COMPLETED = 'completed'
 }
@@ -44,10 +46,75 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
   const [currentSpinners, setCurrentSpinners] = useState<AssignedItem[]>([]);
   const [openingState, setOpeningState] = useState<OpeningState>(OpeningState.IDLE);
   const [revealedLog, setRevealedLog] = useState<Item[]>([]);
+  const [showMiniGame, setShowMiniGame] = useState<boolean>(false);
+  const [isOperationLocked, setIsOperationLocked] = useState<boolean>(false); // 操作锁定
+  const [lockCountdown, setLockCountdown] = useState<number>(0); // 锁定倒计时
   
   // 用于取消动画的ref
   const animationCancelRef = useRef<boolean>(false);
   const currentContainerRef = useRef<string>(containerName);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 清理倒计时定时器
+  const clearCountdownTimer = useCallback(() => {
+    if (countdownIntervalRef.current) {
+      clearInterval(countdownIntervalRef.current);
+      countdownIntervalRef.current = null;
+    }
+  }, []);
+
+  // 启动锁定倒计时
+  const startLockCountdown = useCallback((seconds: number = 3) => {
+    clearCountdownTimer();
+    setLockCountdown(seconds);
+    
+    countdownIntervalRef.current = setInterval(() => {
+      setLockCountdown(prev => {
+        if (prev <= 1) {
+          clearCountdownTimer();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, [clearCountdownTimer]);
+
+  // 组件卸载时清理定时器
+  useEffect(() => {
+    return clearCountdownTimer;
+  }, [clearCountdownTimer]);
+
+  // 计算按钮文本
+  const getButtonText = useCallback(() => {
+    if (openingState === OpeningState.OPENING) {
+      return '开启中...';
+    }
+    
+    if (isOperationLocked && lockCountdown > 0) {
+      return `开启容器(${lockCountdown}s)`;
+    }
+    
+    if (isOperationLocked || openingState === OpeningState.MINI_GAME) {
+      return '开启容器';
+    }
+    
+    return '开启容器';
+  }, [openingState, isOperationLocked, lockCountdown]);
+
+  // 计算按钮是否禁用
+  const isButtonDisabled = useCallback(() => {
+    const container = gameConfig.containers[containerName];
+    if (!container) return true;
+    
+    // 如果正在操作中，按钮禁用
+    if (isOperationLocked) return true;
+    
+    // 如果正在开启或进行小游戏，按钮禁用
+    if (openingState === OpeningState.OPENING || openingState === OpeningState.MINI_GAME) return true;
+    
+    // 只有在IDLE或COMPLETED状态下才能开启
+    return !(openingState === OpeningState.IDLE || openingState === OpeningState.COMPLETED);
+  }, [gameConfig, containerName, isOperationLocked, openingState]);
 
   // 当容器切换时，清理状态
   useEffect(() => {
@@ -65,6 +132,10 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
       setCurrentSpinners([]);
       setOpeningState(OpeningState.IDLE);
       setRevealedLog([]);
+      setShowMiniGame(false);
+      setIsOperationLocked(false); // 重置操作锁定
+      setLockCountdown(0); // 重置倒计时
+      clearCountdownTimer(); // 清理倒计时定时器
       
       // 更新容器引用
       currentContainerRef.current = containerName;
@@ -78,7 +149,39 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
 
   // 开始开启容器
   const startOpening = useCallback(async () => {
-    if (openingState === OpeningState.OPENING) return;
+    // 防止重复操作
+    if (isOperationLocked || openingState === OpeningState.OPENING || openingState === OpeningState.MINI_GAME) {
+      console.log('操作被锁定或状态不允许:', { isOperationLocked, openingState });
+      return;
+    }
+    
+    console.log('开始开启容器操作...');
+    setIsOperationLocked(true);
+    startLockCountdown(3); // 启动3秒倒计时
+    
+    // 检查是否需要小游戏
+    const container: Container = gameConfig.containers[containerName];
+    if (!container) {
+      console.error(`Container ${containerName} not found`);
+      setIsOperationLocked(false);
+      return;
+    }
+    
+    // 如果容器配置了小游戏，先进入小游戏状态
+    if (container.miniGame && container.miniGame.enabled) {
+      setOpeningState(OpeningState.MINI_GAME);
+      setShowMiniGame(true);
+      // 小游戏状态下暂时保持锁定，等待小游戏结果
+      return;
+    }
+    
+    // 没有小游戏的话直接开始开启流程
+    await performActualOpening();
+  }, [gameConfig, containerName, openingState, isOperationLocked]);
+
+  // 实际的开启流程（从小游戏中分离出来）
+  const performActualOpening = useCallback(async () => {
+    console.log('执行实际开启流程...');
     
     // 取消之前的动画（如果有的话）
     animationCancelRef.current = true;
@@ -97,12 +200,14 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
     setRevealedItems([]);
     setCurrentSpinners([]);
     setRevealedLog([]);
-    
+    setShowMiniGame(false); // 关闭小游戏界面
+
     try {
       const container: Container = gameConfig.containers[containerName];
       if (!container) {
         console.error(`Container ${containerName} not found`);
         setOpeningState(OpeningState.IDLE);
+        setIsOperationLocked(false);
         onAnimationStateChange?.(false);
         return;
       }
@@ -148,8 +253,28 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
       }
       // 通知父组件动画结束
       onAnimationStateChange?.(false);
+      // 释放操作锁定
+      setIsOperationLocked(false);
+      setLockCountdown(0);
+      clearCountdownTimer();
     }
-  }, [gameConfig, containerName]);
+  }, [gameConfig, containerName, onAnimationStateChange, onStatisticsUpdate]);
+  
+  // 小游戏成功回调
+  const handleMiniGameSuccess = useCallback(() => {
+    console.log('小游戏完成，开始开启容器');
+    performActualOpening();
+  }, [performActualOpening]);
+
+  // 小游戏失败回调
+  const handleMiniGameFail = useCallback(() => {
+    console.log('小游戏失败，返回初始状态');
+    setOpeningState(OpeningState.IDLE);
+    setShowMiniGame(false);
+    setIsOperationLocked(false); // 释放锁定
+    setLockCountdown(0);
+    clearCountdownTimer();
+  }, [clearCountdownTimer]);
   
   // 执行揭示动画
   const performRevealAnimation = async (items: AssignedItem[]) => {
@@ -196,15 +321,22 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
     // 通知父组件动画结束
     onAnimationStateChange?.(false);
     
-    console.log('动画已跳过');
   }, [assignedItems, onAnimationStateChange]);
 
-  // 按钮状态
+  // 获取容器信息
   const container = gameConfig.containers[containerName];
-  const canOpen = container && (openingState === OpeningState.IDLE || openingState === OpeningState.COMPLETED);
 
   return (
     <div className={styles.container}>
+      {/* 小游戏组件 */}
+      {showMiniGame && container?.miniGame && (
+        <MiniGameManager
+          config={container.miniGame}
+          onSuccess={handleMiniGameSuccess}
+          onFail={handleMiniGameFail}
+        />
+      )}
+      
       <div className={styles.header}>
         <h1 className={styles.title}>三角洲行动 - 容器开启模拟</h1>
         <h2 className={styles.containerName}>{container?.name || containerName}</h2>
@@ -247,11 +379,11 @@ const ContainerOpening: React.FC<ContainerOpeningProps> = ({
       
       <div className={styles.controls}>
         <button 
-          className={styles.openButton}
+          className={`${styles.openButton} ${isButtonDisabled() ? styles.disabled : ''}`}
           onClick={startOpening}
-          disabled={!canOpen}
+          disabled={isButtonDisabled()}
         >
-          {openingState === OpeningState.OPENING ? '开启中...' : '开启容器'}
+          {getButtonText()}
         </button>
         
         {openingState === OpeningState.OPENING && (

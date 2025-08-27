@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快速点击防护测试 - 三角洲行动小游戏系统</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .section h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+        
+        .test-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+        
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .warning-icon {
+            color: #ffc107;
+            margin-right: 10px;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-left: 4px solid #00d4ff;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ 快速点击防护系统测试</h1>
+        
+        <div class="section">
+            <h2>🎯 修复目标</h2>
+            <p>解决快速交叉点击"跳过验证"和"开启容器"按钮导致的显示错乱问题。</p>
+        </div>
+        
+        <div class="section">
+            <h2>🔧 实施的修复措施</h2>
+            <ul class="feature-list">
+                <li><strong>状态锁定机制</strong> - 添加 isProcessing 和 isOperationLocked 状态防止重复操作</li>
+                <li><strong>定时器管理</strong> - 使用 useRef 管理定时器，组件卸载时自动清理</li>
+                <li><strong>操作原子性</strong> - 确保状态变更的原子性，避免中间状态</li>
+                <li><strong>按钮禁用</strong> - 处理过程中禁用所有相关按钮</li>
+                <li><strong>异步操作保护</strong> - 防止并发执行冲突</li>
+                <li><strong>状态清理</strong> - 容器切换时完整清理所有状态</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>🛠️ 技术实现细节</h2>
+            
+            <h3>1. MiniGameManager 防护机制</h3>
+            <div class="code-block">
+// 添加状态锁定和定时器管理
+const [isProcessing, setIsProcessing] = useState(false);
+const timeoutRef = useRef&lt;NodeJS.Timeout | null&gt;(null);
+
+// 防止重复操作
+const handleGameComplete = useCallback((result: MiniGameResult) =&gt; {
+  if (isProcessing) return; // 防护检查
+  setIsProcessing(true);
+  // ... 处理逻辑
+}, [isProcessing, ...]);
+            </div>
+            
+            <h3>2. ContainerOpening 操作锁定</h3>
+            <div class="code-block">
+// 操作锁定机制
+const [isOperationLocked, setIsOperationLocked] = useState(false);
+
+const startOpening = useCallback(async () =&gt; {
+  if (isOperationLocked || openingState === OpeningState.OPENING) {
+    return; // 防护检查
+  }
+  setIsOperationLocked(true);
+  // ... 处理逻辑
+}, [isOperationLocked, ...]);
+            </div>
+            
+            <h3>3. 按钮状态管理</h3>
+            <div class="code-block">
+// 按钮禁用状态
+&lt;button 
+  onClick={handleStartGame}
+  disabled={isProcessing}
+&gt;
+  开始挑战
+&lt;/button&gt;
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🧪 测试步骤</h2>
+            <ol>
+                <li>选择配置了小游戏的容器（如"大保险箱"）</li>
+                <li>点击"开启容器"进入小游戏界面</li>
+                <li>尝试快速连续点击"开始挑战"按钮</li>
+                <li>尝试快速连续点击"跳过验证"按钮</li>
+                <li>在游戏过程中快速点击多个按钮</li>
+                <li>验证不会出现状态错乱或重复操作</li>
+            </ol>
+        </div>
+        
+        <div class="warning">
+            <span class="warning-icon">⚠️</span>
+            <strong>测试要点：</strong>
+            修复后的系统应该能够正确处理所有快速点击操作，不会出现界面错乱、重复执行或状态不一致的问题。
+        </div>
+        
+        <div class="section">
+            <h2>🎮 开始测试</h2>
+            <p>点击下面的按钮开始测试修复后的系统：</p>
+            <a href="http://localhost:5173/" class="test-button">🚀 打开主应用测试</a>
+            <a href="http://localhost:5173/container-editor.html" class="test-button">⚙️ 打开容器编辑器</a>
+        </div>
+        
+        <div class="section">
+            <h2>📊 预期结果</h2>
+            <ul class="feature-list">
+                <li>快速点击按钮时不会触发重复操作</li>
+                <li>处理过程中相关按钮被正确禁用</li>
+                <li>状态转换流畅无错乱</li>
+                <li>用户界面始终保持一致性</li>
+                <li>异常情况下能正确恢复</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        console.log('🛡️ 快速点击防护测试页面已加载');
+        console.log('📝 测试要点：');
+        console.log('1. 验证快速点击防护机制');
+        console.log('2. 确认按钮禁用状态');
+        console.log('3. 检查状态同步正确性');
+        console.log('4. 测试异常恢复能力');
+    </script>
+</body>
+</html>

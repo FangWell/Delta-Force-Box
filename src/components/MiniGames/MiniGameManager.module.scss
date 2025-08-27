@@ -1,0 +1,340 @@
+// 小游戏管理器样式
+.gameIntro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.introContent {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 40px;
+  border-radius: 16px;
+  border: 2px solid #ffd700;
+  max-width: 500px;
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.introContent h2 {
+  color: #ffd700;
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.gameInfo {
+  margin-bottom: 32px;
+}
+
+.gameInfo h3 {
+  color: #ffffff;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.gameInfo p {
+  color: #cccccc;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.difficulty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.difficultyLabel {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.difficultyValue {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.difficultyValue.easy {
+  background: #27ae60;
+  color: white;
+}
+
+.difficultyValue.medium {
+  background: #f39c12;
+  color: white;
+}
+
+.difficultyValue.hard {
+  background: #e74c3c;
+  color: white;
+}
+
+.timeLimit {
+  color: #ffd700;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.startButton {
+  background: linear-gradient(45deg, #ffd700, #ffed4a);
+  color: #1a1a2e;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.startButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.startButton:disabled {
+  background: rgba(255, 215, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.skipButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: #cccccc;
+  border: 1px solid #555;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.skipButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-color: #777;
+}
+
+.skipButton:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(204, 204, 204, 0.3);
+  border-color: #333;
+  cursor: not-allowed;
+}
+
+// 游戏容器
+.gameContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.gameHeader {
+  background: linear-gradient(90deg, #1a1a2e, #16213e);
+  padding: 20px;
+  border-bottom: 2px solid #ffd700;
+  text-align: center;
+}
+
+.gameHeader h3 {
+  color: #ffd700;
+  font-size: 24px;
+  margin: 0;
+}
+
+// 游戏结果
+.gameResult {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.resultContent {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 40px;
+  border-radius: 16px;
+  border: 2px solid #ffd700;
+  max-width: 400px;
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+.successIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: bounce 0.6s ease-in-out;
+}
+
+.failIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: shake 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -20px, 0);
+  }
+  70% {
+    transform: translate3d(0, -10px, 0);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.resultContent h3 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.resultContent p {
+  color: #cccccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.score {
+  color: #ffd700;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.retryButton {
+  background: linear-gradient(45deg, #e74c3c, #ff6b6b);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.retryButton:disabled {
+  background: rgba(231, 76, 60, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.notImplemented {
+  padding: 40px;
+  text-align: center;
+  color: #cccccc;
+}
+
+.notImplemented h3 {
+  color: #ffd700;
+  margin-bottom: 16px;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .introContent {
+    padding: 24px;
+    margin: 20px;
+    max-width: calc(100vw - 40px);
+  }
+  
+  .introContent h2 {
+    font-size: 24px;
+  }
+  
+  .gameInfo h3 {
+    font-size: 20px;
+  }
+  
+  .actionButtons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .startButton,
+  .skipButton {
+    width: 100%;
+    padding: 12px;
+  }
+  
+  .resultContent {
+    margin: 20px;
+    padding: 24px;
+    max-width: calc(100vw - 40px);
+  }
+}

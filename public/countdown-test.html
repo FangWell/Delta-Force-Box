@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开启按钮倒计时功能测试 - 三角洲行动</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .feature-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 5px solid #ffd700;
+        }
+        
+        .feature-section h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .feature-list li:before {
+            content: "⏱️";
+            position: absolute;
+            left: 12px;
+            font-size: 16px;
+        }
+        
+        .demo-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .demo-button.disabled {
+            background: #666;
+            color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .demo-button.disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .test-steps {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .test-steps h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .test-steps ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .test-steps li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+            margin: 15px 0;
+        }
+        
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            border-left: 4px solid #00d4aa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ 开启按钮倒计时功能测试</h1>
+        
+        <div class="feature-section">
+            <h2>🎯 功能特性</h2>
+            <ul class="feature-list">
+                <li><strong>智能倒计时</strong>：按钮被锁定时显示剩余时间 "开启容器(3s)"</li>
+                <li><strong>视觉反馈</strong>：按钮置灰且不可点击，提供清晰的状态指示</li>
+                <li><strong>实时更新</strong>：倒计时每秒递减，精确显示剩余时间</li>
+                <li><strong>自动恢复</strong>：倒计时结束后按钮自动恢复正常状态</li>
+                <li><strong>防误操作</strong>：锁定期间完全阻止重复点击</li>
+            </ul>
+        </div>
+        
+        <div class="feature-section">
+            <h2>🔍 触发场景</h2>
+            <ul class="feature-list">
+                <li>点击"开启容器"后的操作锁定期间</li>
+                <li>小游戏验证过程中</li>
+                <li>开箱动画播放期间</li>
+                <li>任何异步操作执行时</li>
+            </ul>
+        </div>
+        
+        <div class="test-steps">
+            <h3>🧪 测试步骤</h3>
+            <ol>
+                <li>点击下方按钮打开主应用</li>
+                <li>选择"大保险箱"（已配置小游戏）</li>
+                <li>点击"开启容器"按钮</li>
+                <li>观察按钮显示变为"开启容器(3s)"并开始倒计时</li>
+                <li>尝试在倒计时期间点击按钮（应无响应）</li>
+                <li>等待倒计时结束，验证按钮恢复正常</li>
+            </ol>
+        </div>
+        
+        <div class="highlight">
+            <strong>🎯 预期效果：</strong>
+            <br>• 按钮文本：开启容器 → 开启容器(3s) → 开启容器(2s) → 开启容器(1s) → 恢复正常
+            <br>• 按钮状态：可点击 → 禁用置灰 → 可点击
+            <br>• 用户交互：完全防止重复点击和误操作
+        </div>
+        
+        <div class="feature-section">
+            <h2>💡 实现细节</h2>
+            
+            <div class="code-example">
+// 倒计时状态管理
+const [lockCountdown, setLockCountdown] = useState&lt;number&gt;(0);
+const countdownIntervalRef = useRef&lt;NodeJS.Timeout | null&gt;(null);
+
+// 启动倒计时
+const startLockCountdown = useCallback((seconds: number = 3) => {
+  clearCountdownTimer();
+  setLockCountdown(seconds);
+  
+  countdownIntervalRef.current = setInterval(() => {
+    setLockCountdown(prev => {
+      if (prev <= 1) {
+        clearCountdownTimer();
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+}, [clearCountdownTimer]);
+            </div>
+            
+            <div class="code-example">
+// 按钮文本计算
+const getButtonText = useCallback(() => {
+  if (openingState === OpeningState.OPENING) {
+    return '开启中...';
+  }
+  
+  if (isOperationLocked && lockCountdown > 0) {
+    return `开启容器(${lockCountdown}s)`;
+  }
+  
+  return '开启容器';
+}, [openingState, isOperationLocked, lockCountdown]);
+            </div>
+        </div>
+        
+        <div class="feature-section">
+            <h2>🚀 开始测试</h2>
+            <p>点击下面的按钮开始体验全新的倒计时功能：</p>
+            
+            <a href="http://localhost:5174/" class="demo-button">
+                🎮 打开主应用
+            </a>
+            
+            <a href="http://localhost:5174/container-editor.html" class="demo-button">
+                ⚙️ 容器编辑器
+            </a>
+        </div>
+        
+        <div class="highlight">
+            <strong>🎉 功能亮点：</strong>
+            <br>• 用户友好的时间提示
+            <br>• 完美的状态同步
+            <br>• 零重复操作问题
+            <br>• 优雅的视觉设计
+        </div>
+    </div>
+
+    <script>
+        console.log('⏱️ 倒计时功能测试页面已加载');
+        console.log('🎯 测试要点：');
+        console.log('1. 验证倒计时显示正确');
+        console.log('2. 确认按钮禁用状态');
+        console.log('3. 检查防重复点击');
+        console.log('4. 测试自动恢复功能');
+        
+        // 模拟倒计时按钮演示
+        function simulateCountdown() {
+            const button = document.querySelector('.demo-button');
+            let countdown = 3;
+            
+            button.textContent = `开启容器(${countdown}s)`;
+            button.classList.add('disabled');
+            
+            const timer = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    button.textContent = `开启容器(${countdown}s)`;
+                } else {
+                    button.textContent = '🎮 打开主应用';
+                    button.classList.remove('disabled');
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

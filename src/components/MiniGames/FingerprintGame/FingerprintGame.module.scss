@@ -1,0 +1,269 @@
+// 指纹游戏样式
+.fingerprintGame {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+.gameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #333;
+  margin-bottom: 24px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ffd700;
+}
+
+.timerIcon {
+  font-size: 18px;
+}
+
+.timeText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffd700;
+  min-width: 32px;
+  text-align: center;
+}
+
+.timeText.urgent {
+  color: #ff4757;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.difficulty {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+// 目标指纹区域
+.targetSection {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.targetSection h4 {
+  color: #ffd700;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.targetFingerprint {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.targetPattern {
+  border: 3px solid #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+  }
+  to {
+    box-shadow: 0 4px 24px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.targetSection p {
+  color: #cccccc;
+  font-size: 16px;
+  margin: 0;
+}
+
+// 选项区域
+.optionsSection {
+  margin-bottom: 24px;
+}
+
+.optionsSection h4 {
+  color: #ffd700;
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.fingerprintGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.fingerprintOption {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 140px;
+}
+
+.fingerprintOption:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #555;
+  transform: translateY(-2px);
+}
+
+.fingerprintOption.selected {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.fingerprintOption.correct {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+  animation: correctPulse 0.6s ease-in-out;
+}
+
+.fingerprintOption.wrong {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  animation: wrongShake 0.6s ease-in-out;
+}
+
+@keyframes correctPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1.05); }
+}
+
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0) scale(1.05); }
+  20%, 60% { transform: translateX(-4px) scale(1.05); }
+  40%, 80% { transform: translateX(4px) scale(1.05); }
+}
+
+.optionPattern {
+  border: 1px solid #444;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+
+.fingerprintOption.selected .optionPattern,
+.fingerprintOption:hover .optionPattern {
+  border-color: #666;
+}
+
+.fingerprintOption.correct .optionPattern {
+  border-color: #27ae60;
+}
+
+.fingerprintOption.wrong .optionPattern {
+  border-color: #e74c3c;
+}
+
+.optionLabel {
+  font-size: 14px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.fingerprintOption.selected .optionLabel {
+  color: #ffd700;
+}
+
+.fingerprintOption.correct .optionLabel {
+  color: #27ae60;
+}
+
+.fingerprintOption.wrong .optionLabel {
+  color: #e74c3c;
+}
+
+// 游戏提示
+.gameHint {
+  background: rgba(52, 152, 219, 0.1);
+  border: 1px solid rgba(52, 152, 219, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  color: #3498db;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .fingerprintGame {
+    padding: 16px;
+  }
+  
+  .gameHeader {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .targetSection {
+    padding: 20px 16px;
+  }
+  
+  .targetPattern,
+  .optionPattern {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  
+  .fingerprintGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+  }
+  
+  .fingerprintOption {
+    padding: 12px;
+    min-width: 120px;
+  }
+  
+  .gameHint {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fingerprintGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .targetPattern,
+  .optionPattern {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  .fingerprintOption {
+    min-width: auto;
+  }
+}

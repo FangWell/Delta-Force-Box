@@ -4,6 +4,18 @@ export type QualityType = 1 | 2 | 3 | 4 | 5 | 6;
 // 物品种类类型
 export type CategoryType = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
+// 小游戏类型
+export type MiniGameType = 'fingerprint_decipher' | 'memory_match' | 'puzzle_solve' | 'password_cracking';
+
+// 小游戏配置接口
+export interface MiniGameConfig {
+  enabled: boolean;
+  gameType: MiniGameType;
+  difficulty: 'easy' | 'medium' | 'hard';
+  timeLimit?: number; // 时间限制（秒）
+  description?: string; // 游戏描述
+}
+
 // 物品种类名称映射
 export const CATEGORY_NAMES: Record<CategoryType, string> = {
   1: '工艺藏品',
@@ -40,6 +52,7 @@ export interface Container {
   itemPool: string[];   // 道具池ID列表（必需）
   color: string;
   description?: string;
+  miniGame?: MiniGameConfig; // 小游戏配置
 }
 
 // 完整配置接口 - 移除布局系统
